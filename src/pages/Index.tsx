@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -17,7 +18,8 @@ import {
   Clock,
   Award,
   Play,
-  ChevronRight
+  ChevronRight,
+  Users
 } from 'lucide-react';
 import HealthMetricsGrid from '@/components/HealthMetricsGrid';
 import WorkoutSection from '@/components/WorkoutSection';
@@ -42,7 +44,13 @@ const Index = () => {
                 <p className="text-sm text-gray-600">Your AI Health Coach</p>
               </div>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-4">
+              <Link to="/coach">
+                <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                  <Users className="w-4 h-4" />
+                  <span>Coach Dashboard</span>
+                </Button>
+              </Link>
               <Badge variant="secondary" className="bg-green-100 text-green-700">
                 <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
                 Connected
