@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -11,7 +10,8 @@ import {
   TrendingUp,
   Dumbbell,
   MapPin,
-  Timer
+  Timer,
+  Heart
 } from 'lucide-react';
 
 const WorkoutSection = () => {
