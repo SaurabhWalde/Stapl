@@ -45,6 +45,12 @@ const Index = () => {
               </div>
             </div>
             <div className="flex items-center space-x-4">
+              <Link to="/motion-capture">
+                <Button variant="outline" size="sm" className="flex items-center space-x-2">
+                  <Activity className="w-4 h-4" />
+                  <span>Motion Capture</span>
+                </Button>
+              </Link>
               <Link to="/coach">
                 <Button variant="outline" size="sm" className="flex items-center space-x-2">
                   <Users className="w-4 h-4" />
