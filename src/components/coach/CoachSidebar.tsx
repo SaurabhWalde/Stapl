@@ -35,20 +35,21 @@ const menuItems = [
 ];
 
 export function CoachSidebar() {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
+  const isCollapsed = state === "collapsed";
 
   const isActive = (path: string) => currentPath === path;
 
   return (
-    <Sidebar className={collapsed ? "w-14" : "w-60"} collapsible>
+    <Sidebar className={isCollapsed ? "w-14" : "w-60"} collapsible="icon">
       <SidebarHeader className="p-4">
         <div className="flex items-center space-x-3">
           <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg flex items-center justify-center">
             <Activity className="w-5 h-5 text-white" />
           </div>
-          {!collapsed && (
+          {!isCollapsed && (
             <div>
               <h2 className="font-bold text-lg">SmartFit Coach</h2>
               <p className="text-sm text-muted-foreground">Team Dashboard</p>
@@ -74,7 +75,7 @@ export function CoachSidebar() {
                       }
                     >
                       <item.icon className="mr-2 h-4 w-4" />
-                      {!collapsed && <span>{item.title}</span>}
+                      {!isCollapsed && <span>{item.title}</span>}
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>

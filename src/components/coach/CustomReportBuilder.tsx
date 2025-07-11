@@ -8,6 +8,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { FileText, Download, Calendar as CalendarIcon, Settings } from 'lucide-react';
 import { format } from 'date-fns';
+import type { DateRange } from 'react-day-picker';
 
 const availableMetrics = [
   "Heart Rate Variability",
@@ -22,10 +23,7 @@ const availableMetrics = [
 
 export function CustomReportBuilder() {
   const [selectedMetrics, setSelectedMetrics] = useState<string[]>([]);
-  const [dateRange, setDateRange] = useState<{ from: Date | undefined; to: Date | undefined }>({
-    from: undefined,
-    to: undefined
-  });
+  const [dateRange, setDateRange] = useState<DateRange | undefined>();
   const [showDatePicker, setShowDatePicker] = useState(false);
 
   const handleMetricToggle = (metric: string) => {
@@ -93,7 +91,7 @@ export function CustomReportBuilder() {
                     className="w-full justify-start text-left font-normal"
                   >
                     <CalendarIcon className="mr-2 h-4 w-4" />
-                    {dateRange.from ? (
+                    {dateRange?.from ? (
                       dateRange.to ? (
                         <>
                           {format(dateRange.from, "LLL dd, y")} -{" "}
@@ -111,7 +109,7 @@ export function CustomReportBuilder() {
                   <Calendar
                     initialFocus
                     mode="range"
-                    defaultMonth={dateRange.from}
+                    defaultMonth={dateRange?.from}
                     selected={dateRange}
                     onSelect={setDateRange}
                     numberOfMonths={2}
