@@ -11,16 +11,22 @@ import {
   CheckCircle,
   RotateCcw,
   Camera,
-  Scan
+  Scan,
+  Play,
+  Square
 } from 'lucide-react';
 import { Avatar3DViewer } from './Avatar3DViewer';
 import { PostureAnalysis } from './PostureAnalysis';
 import { BodyMetrics } from './BodyMetrics';
+import { RealtimeMotionCapture } from './RealtimeMotionCapture';
+import { ScanResultsPanel } from './ScanResultsPanel';
 
 export function AvatarAnalysisStudio() {
   const [isScanning, setIsScanning] = useState(false);
-  const [avatarGenerated, setAvatarGenerated] = useState(true); // Set to true for demo
+  const [avatarGenerated, setAvatarGenerated] = useState(false);
   const [selectedView, setSelectedView] = useState('front');
+  const [scanData, setScanData] = useState(null);
+  const [showScanResults, setShowScanResults] = useState(false);
 
   const postureData = {
     overallScore: 82,
@@ -42,11 +48,20 @@ export function AvatarAnalysisStudio() {
 
   const handleStartScan = () => {
     setIsScanning(true);
-    // Simulate scanning process
-    setTimeout(() => {
-      setIsScanning(false);
-      setAvatarGenerated(true);
-    }, 3000);
+    setAvatarGenerated(false);
+    setShowScanResults(false);
+    setScanData(null);
+  };
+
+  const handleStopScan = () => {
+    setIsScanning(false);
+  };
+
+  const handleScanComplete = (data: any) => {
+    setScanData(data);
+    setIsScanning(false);
+    setAvatarGenerated(true);
+    setShowScanResults(true);
   };
 
   return (
@@ -55,37 +70,51 @@ export function AvatarAnalysisStudio() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900">3D Avatar Analysis</h1>
-            <p className="text-gray-600">AI-powered body analysis and posture assessment</p>
+            <h1 className="text-3xl font-bold text-gray-900">3D Avatar Motion Capture</h1>
+            <p className="text-gray-600">AI-powered real-time body analysis and posture assessment</p>
           </div>
           <div className="flex items-center space-x-3">
             <Badge variant="secondary" className="bg-green-100 text-green-700">
               <Scan className="w-4 h-4 mr-2" />
               Motion Capture Ready
             </Badge>
-            <Button 
-              onClick={handleStartScan}
-              disabled={isScanning}
-              className="bg-blue-600 hover:bg-blue-700"
-            >
-              {isScanning ? (
-                <>
-                  <RotateCcw className="w-4 h-4 mr-2 animate-spin" />
-                  Scanning...
-                </>
-              ) : (
-                <>
-                  <Camera className="w-4 h-4 mr-2" />
-                  New Scan
-                </>
-              )}
-            </Button>
+            {!isScanning ? (
+              <Button 
+                onClick={handleStartScan}
+                className="bg-blue-600 hover:bg-blue-700"
+              >
+                <Play className="w-4 h-4 mr-2" />
+                Start Scan
+              </Button>
+            ) : (
+              <Button 
+                onClick={handleStopScan}
+                variant="destructive"
+              >
+                <Square className="w-4 h-4 mr-2" />
+                Stop Scan
+              </Button>
+            )}
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Motion Capture Scanner */}
+          <div className="space-y-6">
+            <RealtimeMotionCapture 
+              onScanComplete={handleScanComplete}
+              isActive={isScanning}
+            />
+            {showScanResults && (
+              <ScanResultsPanel 
+                scanData={scanData}
+                isVisible={showScanResults}
+              />
+            )}
+          </div>
+
           {/* 3D Avatar Viewer */}
-          <div className="lg:col-span-1">
+          <div className="space-y-6">
             <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
@@ -123,7 +152,7 @@ export function AvatarAnalysisStudio() {
                     <div className="w-full h-full flex items-center justify-center text-white">
                       <div className="text-center">
                         <User className="w-16 h-16 mx-auto mb-4 text-gray-400" />
-                        <p className="text-lg mb-2">No Avatar Generated</p>
+                        <p className="text-lg">No Avatar Generated</p>
                         <p className="text-sm text-gray-400">Start a motion capture scan to create your 3D avatar</p>
                       </div>
                     </div>
@@ -131,95 +160,96 @@ export function AvatarAnalysisStudio() {
                 </div>
               </CardContent>
             </Card>
-          </div>
 
-          {/* Analysis Panel */}
-          <div className="space-y-6">
-            {/* Posture Analysis */}
-            <PostureAnalysis data={postureData} />
-            
-            {/* Body Metrics */}
-            <BodyMetrics data={bodyMetrics} />
+            {/* Analysis Panel - only show when avatar is generated */}
+            {avatarGenerated && (
+              <div className="space-y-6">
+                <PostureAnalysis data={postureData} />
+                <BodyMetrics data={bodyMetrics} />
+              </div>
+            )}
           </div>
         </div>
 
-        {/* Detailed Analysis */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <CheckCircle className="w-5 h-5 text-green-500" />
-                <span>Strengths</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span>Excellent knee tracking</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span>Good shoulder alignment</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                  <span>Balanced hip positioning</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+        {/* Detailed Analysis - only show when scan is complete */}
+        {avatarGenerated && (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <CheckCircle className="w-5 h-5 text-green-500" />
+                  <span>Strengths</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>Excellent knee tracking</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>Good shoulder alignment</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                    <span>Balanced hip positioning</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <AlertTriangle className="w-5 h-5 text-yellow-500" />
-                <span>Areas for Improvement</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                  <span>Forward head posture</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                  <span>Spinal curvature needs attention</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                  <span>Core stability could improve</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+            <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <AlertTriangle className="w-5 h-5 text-yellow-500" />
+                  <span>Areas for Improvement</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                    <span>Forward head posture</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                    <span>Spinal curvature needs attention</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                    <span>Core stability could improve</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
 
-          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
-            <CardHeader>
-              <CardTitle className="flex items-center space-x-2">
-                <TrendingUp className="w-5 h-5 text-blue-500" />
-                <span>Recommendations</span>
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm">
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span>Neck stretching exercises</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span>Core strengthening routine</span>
-                </li>
-                <li className="flex items-center space-x-2">
-                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                  <span>Posture awareness training</span>
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
+            <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="flex items-center space-x-2">
+                  <TrendingUp className="w-5 h-5 text-blue-500" />
+                  <span>Recommendations</span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-2 text-sm">
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span>Neck stretching exercises</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span>Core strengthening routine</span>
+                  </li>
+                  <li className="flex items-center space-x-2">
+                    <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                    <span>Posture awareness training</span>
+                  </li>
+                </ul>
+              </CardContent>
+            </Card>
+          </div>
+        )}
       </div>
     </div>
   );
