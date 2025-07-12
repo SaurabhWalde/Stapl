@@ -9,6 +9,7 @@ import { RiskAlertsPanel } from '@/components/coach/RiskAlertsPanel';
 import { PerformanceLeaderboard } from '@/components/coach/PerformanceLeaderboard';
 import { ProgramAssignmentPanel } from '@/components/coach/ProgramAssignmentPanel';
 import { CustomReportBuilder } from '@/components/coach/CustomReportBuilder';
+import { Avatar3DPanel } from '@/components/coach/Avatar3DPanel';
 
 const CoachDashboard = () => {
   return (
@@ -25,15 +26,16 @@ const CoachDashboard = () => {
               <TeamOverview />
               
               {/* Main Content Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
                 {/* Left Column */}
-                <div className="space-y-6">
+                <div className="space-y-6 xl:col-span-2">
                   <ClientListTable />
                   <PerformanceLeaderboard />
                 </div>
                 
                 {/* Right Column */}
                 <div className="space-y-6">
+                  <Avatar3DPanel />
                   <RiskAlertsPanel />
                   <ProgramAssignmentPanel />
                 </div>
