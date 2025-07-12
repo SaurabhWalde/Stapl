@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Pose } from '@mediapipe/pose';
 import { Camera } from '@mediapipe/camera_utils';
