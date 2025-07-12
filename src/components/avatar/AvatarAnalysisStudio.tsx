@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,7 @@ import {
   CheckCircle,
   RotateCcw,
   Camera,
-  Scan3D
+  Scan
 } from 'lucide-react';
 import { Avatar3DViewer } from './Avatar3DViewer';
 import { PostureAnalysis } from './PostureAnalysis';
@@ -61,7 +60,7 @@ export function AvatarAnalysisStudio() {
           </div>
           <div className="flex items-center space-x-3">
             <Badge variant="secondary" className="bg-green-100 text-green-700">
-              <Scan3D className="w-4 h-4 mr-2" />
+              <Scan className="w-4 h-4 mr-2" />
               Motion Capture Ready
             </Badge>
             <Button 

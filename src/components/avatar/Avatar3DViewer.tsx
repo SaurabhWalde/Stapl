@@ -10,7 +10,7 @@ interface Avatar3DViewerProps {
 }
 
 export function Avatar3DViewer({ view, isScanning }: Avatar3DViewerProps) {
-  const getCameraPosition = () => {
+  const getCameraPosition = (): [number, number, number] => {
     switch (view) {
       case 'front': return [0, 0, 5];
       case 'side': return [5, 0, 0];
