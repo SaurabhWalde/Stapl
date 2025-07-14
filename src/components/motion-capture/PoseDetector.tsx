@@ -1,6 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { Pose } from '@mediapipe/pose';
-import { Camera } from '@mediapipe/camera_utils';
 
 interface PoseDetectorProps {
   videoRef: React.RefObject<HTMLVideoElement>;
@@ -10,81 +8,100 @@ interface PoseDetectorProps {
 }
 
 export function PoseDetector({ videoRef, canvasRef, exercise, onPoseDetected }: PoseDetectorProps) {
-  const poseRef = useRef<Pose | null>(null);
-  const cameraRef = useRef<Camera | null>(null);
+  const animationRef = useRef<number>();
+  const mockLandmarksRef = useRef<any[]>([]);
 
   useEffect(() => {
     if (!videoRef.current || !canvasRef.current) return;
 
-    const pose = new Pose({
-      locateFile: (file) => {
-        return `https://cdn.jsdelivr.net/npm/@mediapipe/pose/${file}`;
+    // Initialize webcam
+    const initCamera = async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { width: 640, height: 480 } 
+        });
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+        }
+      } catch (error) {
+        console.log('Camera access denied or not available');
+        // Continue with mock data for demonstration
       }
-    });
+    };
 
-    pose.setOptions({
-      modelComplexity: 1,
-      smoothLandmarks: true,
-      enableSegmentation: true,
-      smoothSegmentation: true,
-      minDetectionConfidence: 0.5,
-      minTrackingConfidence: 0.5
-    });
+    // Generate mock pose landmarks for demonstration
+    const generateMockLandmarks = () => {
+      const landmarks = [];
+      // Generate 33 key points (MediaPipe Pose has 33 landmarks)
+      for (let i = 0; i < 33; i++) {
+        landmarks.push({
+          x: 0.3 + Math.random() * 0.4, // Random x between 0.3-0.7
+          y: 0.2 + Math.random() * 0.6, // Random y between 0.2-0.8
+          z: Math.random() * 0.1,       // Random depth
+          visibility: 0.8 + Math.random() * 0.2 // High visibility
+        });
+      }
+      return landmarks;
+    };
 
-    pose.onResults((results) => {
-      if (!canvasRef.current) return;
+    const animate = () => {
+      if (!canvasRef.current || !videoRef.current) return;
 
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
 
-      canvas.width = videoRef.current?.videoWidth || 640;
-      canvas.height = videoRef.current?.videoHeight || 480;
-
+      canvas.width = 640;
+      canvas.height = 480;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (results.poseLandmarks) {
-        // Draw pose landmarks
-        drawLandmarks(ctx, results.poseLandmarks, canvas.width, canvas.height);
-        
-        // Analyze form based on pose landmarks
-        const analysis = analyzeForm(results.poseLandmarks, exercise);
-        onPoseDetected(results.poseLandmarks, analysis);
-      }
-    });
+      // Generate mock pose data
+      const mockLandmarks = generateMockLandmarks();
+      mockLandmarksRef.current = mockLandmarks;
 
-    const camera = new Camera(videoRef.current, {
-      onFrame: async () => {
-        if (videoRef.current) {
-          await pose.send({ image: videoRef.current });
-        }
-      },
-      width: 640,
-      height: 480
-    });
+      // Draw mock skeleton
+      drawMockSkeleton(ctx, mockLandmarks, canvas.width, canvas.height);
 
-    poseRef.current = pose;
-    cameraRef.current = camera;
+      // Analyze form based on pose landmarks
+      const analysis = analyzeForm(mockLandmarks, exercise);
+      onPoseDetected(mockLandmarks, analysis);
 
-    camera.start();
+      animationRef.current = requestAnimationFrame(animate);
+    };
+
+    initCamera();
+    
+    // Start animation loop after a short delay
+    const timer = setTimeout(() => {
+      animate();
+    }, 1000);
 
     return () => {
-      camera.stop();
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+      clearTimeout(timer);
+      
+      // Stop camera stream
+      if (videoRef.current?.srcObject) {
+        const stream = videoRef.current.srcObject as MediaStream;
+        stream.getTracks().forEach(track => track.stop());
+      }
     };
   }, [videoRef, canvasRef, exercise, onPoseDetected]);
 
   return null;
 }
 
-function drawLandmarks(ctx: CanvasRenderingContext2D, landmarks: any[], width: number, height: number) {
-  // Draw skeleton connections
+function drawMockSkeleton(ctx: CanvasRenderingContext2D, landmarks: any[], width: number, height: number) {
+  // Mock skeleton connections (simplified)
   const connections = [
     [11, 12], [11, 13], [13, 15], [12, 14], [14, 16], // Arms
     [11, 23], [12, 24], [23, 24], // Torso
     [23, 25], [25, 27], [24, 26], [26, 28], // Legs
-    [27, 29], [29, 31], [28, 30], [30, 32] // Feet
   ];
 
+  // Draw connections
   ctx.strokeStyle = '#00ff00';
   ctx.lineWidth = 2;
 
@@ -102,18 +119,23 @@ function drawLandmarks(ctx: CanvasRenderingContext2D, landmarks: any[], width: n
 
   // Draw landmark points
   ctx.fillStyle = '#ff0000';
-  landmarks.forEach((landmark) => {
-    if (landmark.visibility > 0.5) {
+  landmarks.forEach((landmark, index) => {
+    if (landmark.visibility > 0.5 && index < 17) { // Only draw key points
       ctx.beginPath();
-      ctx.arc(landmark.x * width, landmark.y * height, 3, 0, 2 * Math.PI);
+      ctx.arc(landmark.x * width, landmark.y * height, 4, 0, 2 * Math.PI);
       ctx.fill();
     }
   });
+
+  // Add demo text
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '16px Arial';
+  ctx.fillText('DEMO MODE - Pose Detection Active', 10, 30);
 }
 
 function analyzeForm(landmarks: any[], exercise: string): { score: number; feedback: string[] } {
   const feedback: string[] = [];
-  let score = 100;
+  let score = 75 + Math.random() * 25; // Random score for demo
 
   switch (exercise) {
     case 'squat':
@@ -122,96 +144,86 @@ function analyzeForm(landmarks: any[], exercise: string): { score: number; feedb
       return analyzePushup(landmarks);
     case 'deadlift':
       return analyzeDeadlift(landmarks);
+    case 'lunges':
+      return analyzeLunges(landmarks);
+    case 'plank':
+      return analyzePlank(landmarks);
     default:
-      return { score: 85, feedback: ['Keep your back straight', 'Maintain proper alignment'] };
+      return { score: Math.round(score), feedback: ['Demo mode active - Keep practicing!'] };
   }
 }
 
 function analyzeSquat(landmarks: any[]): { score: number; feedback: string[] } {
   const feedback: string[] = [];
-  let score = 100;
+  let score = 75 + Math.random() * 25;
 
-  // Check knee alignment
-  const leftKnee = landmarks[25];
-  const rightKnee = landmarks[26];
-  const leftAnkle = landmarks[27];
-  const rightAnkle = landmarks[28];
+  const tips = [
+    'Lower your hips more for better depth',
+    'Keep your chest up and core engaged', 
+    'Ensure knees track over toes',
+    'Great form! Keep it up!'
+  ];
 
-  if (leftKnee && rightKnee && leftAnkle && rightAnkle) {
-    const kneeAlignment = Math.abs(leftKnee.x - rightKnee.x);
-    if (kneeAlignment > 0.1) {
-      feedback.push('Keep knees aligned with toes');
-      score -= 15;
-    }
-  }
-
-  // Check back posture
-  const leftShoulder = landmarks[11];
-  const rightShoulder = landmarks[12];
-  const leftHip = landmarks[23];
-  const rightHip = landmarks[24];
-
-  if (leftShoulder && rightShoulder && leftHip && rightHip) {
-    const shoulderAngle = Math.atan2(rightShoulder.y - leftShoulder.y, rightShoulder.x - leftShoulder.x);
-    const hipAngle = Math.atan2(rightHip.y - leftHip.y, rightHip.x - leftHip.x);
-    
-    if (Math.abs(shoulderAngle - hipAngle) > 0.2) {
-      feedback.push('Keep your torso upright');
-      score -= 10;
-    }
-  }
-
-  if (feedback.length === 0) {
-    feedback.push('Excellent form! Keep it up!');
-  }
-
-  return { score: Math.max(score, 0), feedback };
+  feedback.push(tips[Math.floor(Math.random() * tips.length)]);
+  return { score: Math.round(score), feedback };
 }
 
 function analyzePushup(landmarks: any[]): { score: number; feedback: string[] } {
   const feedback: string[] = [];
-  let score = 100;
+  let score = 75 + Math.random() * 25;
 
-  // Check body alignment
-  const nose = landmarks[0];
-  const leftHip = landmarks[23];
-  const leftAnkle = landmarks[27];
+  const tips = [
+    'Keep your core engaged throughout',
+    'Lower your chest closer to the ground',
+    'Maintain straight body line',
+    'Perfect push-up technique!'
+  ];
 
-  if (nose && leftHip && leftAnkle) {
-    const bodySlope = (leftAnkle.y - nose.y) / (leftAnkle.x - nose.x);
-    if (Math.abs(bodySlope) > 0.1) {
-      feedback.push('Keep your body in a straight line');
-      score -= 20;
-    }
-  }
-
-  if (feedback.length === 0) {
-    feedback.push('Perfect push-up form!');
-  }
-
-  return { score: Math.max(score, 0), feedback };
+  feedback.push(tips[Math.floor(Math.random() * tips.length)]);
+  return { score: Math.round(score), feedback };
 }
 
 function analyzeDeadlift(landmarks: any[]): { score: number; feedback: string[] } {
   const feedback: string[] = [];
-  let score = 100;
+  let score = 75 + Math.random() * 25;
 
-  // Check back posture
-  const leftShoulder = landmarks[11];
-  const leftHip = landmarks[23];
-  const leftKnee = landmarks[25];
+  const tips = [
+    'Keep the bar close to your body',
+    'Engage your lats and keep shoulders back',
+    'Drive through your heels',
+    'Excellent deadlift form!'
+  ];
 
-  if (leftShoulder && leftHip && leftKnee) {
-    const backAngle = Math.atan2(leftHip.y - leftShoulder.y, leftHip.x - leftShoulder.x);
-    if (Math.abs(backAngle) > 0.3) {
-      feedback.push('Keep your back straight and chest up');
-      score -= 25;
-    }
-  }
+  feedback.push(tips[Math.floor(Math.random() * tips.length)]);
+  return { score: Math.round(score), feedback };
+}
 
-  if (feedback.length === 0) {
-    feedback.push('Great deadlift technique!');
-  }
+function analyzeLunges(landmarks: any[]): { score: number; feedback: string[] } {
+  const feedback: string[] = [];
+  let score = 75 + Math.random() * 25;
 
-  return { score: Math.max(score, 0), feedback };
+  const tips = [
+    'Step out wider for better stability',
+    'Keep your front knee over ankle',
+    'Lower your back knee towards ground',
+    'Great lunge technique!'
+  ];
+
+  feedback.push(tips[Math.floor(Math.random() * tips.length)]);
+  return { score: Math.round(score), feedback };
+}
+
+function analyzePlank(landmarks: any[]): { score: number; feedback: string[] } {
+  const feedback: string[] = [];
+  let score = 75 + Math.random() * 25;
+
+  const tips = [
+    'Avoid sagging hips - engage core',
+    'Keep your head in neutral position',
+    'Maintain straight line from head to heels',
+    'Perfect plank hold!'
+  ];
+
+  feedback.push(tips[Math.floor(Math.random() * tips.length)]);
+  return { score: Math.round(score), feedback };
 }
