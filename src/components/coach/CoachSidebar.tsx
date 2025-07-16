@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import {
@@ -21,7 +20,8 @@ import {
   FileText,
   Settings,
   Activity,
-  Home
+  Home,
+  Zap
 } from 'lucide-react';
 
 const menuItems = [
@@ -59,6 +59,13 @@ const menuItems = [
     icon: BarChart3,
     bgGradient: "from-indigo-500/20 to-blue-500/20",
     iconBg: "bg-gradient-to-r from-indigo-500 to-blue-500"
+  },
+  { 
+    title: "Sensors", 
+    url: "/coach/sensors", 
+    icon: Zap,
+    bgGradient: "from-amber-500/20 to-yellow-500/20",
+    iconBg: "bg-gradient-to-r from-amber-500 to-yellow-500"
   },
   { 
     title: "Reports", 

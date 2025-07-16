@@ -11,6 +11,7 @@ import RiskAlerts from "./pages/coach/RiskAlerts";
 import Performance from "./pages/coach/Performance";
 import Reports from "./pages/coach/Reports";
 import Settings from "./pages/coach/Settings";
+import Sensors from "./pages/coach/Sensors";
 import MotionCapture from "./pages/MotionCapture";
 import AvatarAnalysis from "./pages/AvatarAnalysis";
 import NotFound from "./pages/NotFound";
@@ -31,6 +32,7 @@ const App = () => (
           <Route path="/coach/performance" element={<Performance />} />
           <Route path="/coach/reports" element={<Reports />} />
           <Route path="/coach/settings" element={<Settings />} />
+          <Route path="/coach/sensors" element={<Sensors />} />
           <Route path="/motion-capture" element={<MotionCapture />} />
           <Route path="/avatar-analysis" element={<AvatarAnalysis />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
