@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -22,7 +21,11 @@ import {
   Filter,
   MapPin,
   Clock,
-  Star
+  Star,
+  DollarSign,
+  Package,
+  ShoppingCart,
+  Zap
 } from 'lucide-react';
 
 const CoachNetwork = () => {
@@ -126,6 +129,95 @@ const CoachNetwork = () => {
     }
   ];
 
+  const services = [
+    {
+      id: 1,
+      title: "Complete Fitness Transformation Plan",
+      coach: "Sarah Johnson",
+      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face",
+      price: 299,
+      originalPrice: 399,
+      rating: 4.9,
+      reviews: 127,
+      deliveryTime: "7 days",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
+      description: "Get a personalized 12-week transformation plan with workout routines, nutrition guides, and weekly check-ins.",
+      tags: ["Bestseller", "Premium"],
+      features: ["Custom workout plan", "Nutrition guide", "Weekly check-ins", "Progress tracking"]
+    },
+    {
+      id: 2,
+      title: "1-on-1 Strength Training Session",
+      coach: "Mike Chen",
+      avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face",
+      price: 89,
+      rating: 5.0,
+      reviews: 89,
+      deliveryTime: "1 day",
+      image: "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=250&fit=crop",
+      description: "Individual strength training session with Olympic lifting techniques and form correction.",
+      tags: ["Top Rated"],
+      features: ["1 hour session", "Form analysis", "Technique coaching", "Exercise modifications"]
+    },
+    {
+      id: 3,
+      title: "Personalized Nutrition Plan",
+      coach: "Emma Rodriguez",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face",
+      price: 149,
+      originalPrice: 199,
+      rating: 4.8,
+      reviews: 156,
+      deliveryTime: "3 days",
+      image: "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=250&fit=crop",
+      description: "Custom meal plans tailored to your goals, dietary restrictions, and lifestyle preferences.",
+      tags: ["Popular"],
+      features: ["14-day meal plan", "Shopping lists", "Recipe cards", "Macro calculations"]
+    },
+    {
+      id: 4,
+      title: "Sports Psychology Consultation",
+      coach: "James Wilson",
+      avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face",
+      price: 175,
+      rating: 4.9,
+      reviews: 73,
+      deliveryTime: "2 days",
+      image: "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=400&h=250&fit=crop",
+      description: "Mental performance coaching to overcome barriers and enhance athletic performance.",
+      tags: ["Expert"],
+      features: ["60-min consultation", "Mental training techniques", "Performance strategies", "Follow-up support"]
+    },
+    {
+      id: 5,
+      title: "Yoga Flow & Flexibility Program",
+      coach: "Lisa Wang",
+      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100&h=100&fit=crop&crop=face",
+      price: 79,
+      rating: 4.7,
+      reviews: 201,
+      deliveryTime: "1 day",
+      image: "https://images.unsplash.com/photo-1506629905607-c7f2a6f4e87d?w=400&h=250&fit=crop",
+      description: "Complete yoga program with flexibility routines for athletes and fitness enthusiasts.",
+      tags: ["Trending"],
+      features: ["Video tutorials", "Beginner to advanced", "Equipment-free", "Meditation guide"]
+    },
+    {
+      id: 6,
+      title: "Athletic Recovery Protocol",
+      coach: "Alex Thompson",
+      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face",
+      price: 199,
+      rating: 4.8,
+      reviews: 94,
+      deliveryTime: "5 days",
+      image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
+      description: "Comprehensive recovery strategies including sleep optimization, nutrition timing, and mobility work.",
+      tags: ["Professional"],
+      features: ["Recovery assessment", "Sleep protocols", "Nutrition timing", "Mobility routines"]
+    }
+  ];
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
       {/* Header */}
@@ -150,6 +242,14 @@ const CoachNetwork = () => {
                 >
                   <Users className="w-4 h-4" />
                   <span>Network</span>
+                </Button>
+                <Button 
+                  variant={activeTab === 'marketplace' ? 'default' : 'ghost'}
+                  onClick={() => setActiveTab('marketplace')}
+                  className="flex items-center space-x-2"
+                >
+                  <Package className="w-4 h-4" />
+                  <span>Marketplace</span>
                 </Button>
                 <Button 
                   variant={activeTab === 'jobs' ? 'default' : 'ghost'}
@@ -441,6 +541,180 @@ const CoachNetwork = () => {
                   <div className="flex justify-between">
                     <span>Profile Views</span>
                     <span className="font-semibold">89 this week</span>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        )}
+
+        {/* Marketplace Tab */}
+        {activeTab === 'marketplace' && (
+          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <div className="lg:col-span-3">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-2xl font-bold">Coaching Services Marketplace</h2>
+                <Button>
+                  <Plus className="w-4 h-4 mr-2" />
+                  List Your Service
+                </Button>
+              </div>
+
+              {/* Filters */}
+              <div className="flex flex-wrap gap-3 mb-6">
+                <Button variant="outline" size="sm">All Categories</Button>
+                <Button variant="outline" size="sm">Personal Training</Button>
+                <Button variant="outline" size="sm">Nutrition</Button>
+                <Button variant="outline" size="sm">Mental Coaching</Button>
+                <Button variant="outline" size="sm">Sports Specific</Button>
+                <Button variant="outline" size="sm">Recovery</Button>
+              </div>
+
+              {/* Services Grid */}
+              <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                {services.map((service) => (
+                  <Card key={service.id} className="group hover:shadow-xl transition-all duration-300 overflow-hidden">
+                    <div className="relative">
+                      <img 
+                        src={service.image} 
+                        alt={service.title}
+                        className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-3 left-3 flex flex-wrap gap-1">
+                        {service.tags.map((tag, index) => (
+                          <Badge 
+                            key={index} 
+                            variant={tag === 'Bestseller' ? 'default' : 'secondary'}
+                            className={tag === 'Bestseller' ? 'bg-orange-500' : ''}
+                          >
+                            {tag}
+                          </Badge>
+                        ))}
+                      </div>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="absolute top-3 right-3 bg-white/90 backdrop-blur"
+                      >
+                        <Heart className="w-4 h-4" />
+                      </Button>
+                    </div>
+                    
+                    <CardContent className="p-4">
+                      <div className="flex items-center space-x-2 mb-2">
+                        <Avatar className="w-6 h-6">
+                          <AvatarImage src={service.avatar} />
+                          <AvatarFallback>{service.coach.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+                        </Avatar>
+                        <span className="text-sm text-gray-600">{service.coach}</span>
+                      </div>
+                      
+                      <h3 className="font-semibold text-lg mb-2 line-clamp-2">{service.title}</h3>
+                      <p className="text-sm text-gray-600 mb-3 line-clamp-2">{service.description}</p>
+                      
+                      <div className="flex items-center space-x-2 mb-3">
+                        <div className="flex items-center">
+                          <Star className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                          <span className="text-sm font-medium ml-1">{service.rating}</span>
+                        </div>
+                        <span className="text-sm text-gray-500">({service.reviews} reviews)</span>
+                        <div className="flex items-center text-sm text-gray-500">
+                          <Clock className="w-3 h-3 mr-1" />
+                          {service.deliveryTime}
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          {service.originalPrice && (
+                            <span className="text-sm text-gray-400 line-through">
+                              ${service.originalPrice}
+                            </span>
+                          )}
+                          <span className="text-xl font-bold text-green-600">
+                            ${service.price}
+                          </span>
+                        </div>
+                        <Button size="sm" className="bg-green-600 hover:bg-green-700">
+                          <ShoppingCart className="w-4 h-4 mr-1" />
+                          Order Now
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+
+            {/* Marketplace Sidebar */}
+            <div className="lg:col-span-1 space-y-4">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Top Categories</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-sm">Personal Training</span>
+                    <span className="text-sm font-semibold">1,234</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm">Nutrition Plans</span>
+                    <span className="text-sm font-semibold">892</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm">Mental Coaching</span>
+                    <span className="text-sm font-semibold">567</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm">Recovery Programs</span>
+                    <span className="text-sm font-semibold">345</span>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Seller Tools</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Button variant="outline" size="sm" className="w-full justify-start">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create New Service
+                  </Button>
+                  <Button variant="outline" size="sm" className="w-full justify-start">
+                    <DollarSign className="w-4 h-4 mr-2" />
+                    Manage Earnings
+                  </Button>
+                  <Button variant="outline" size="sm" className="w-full justify-start">
+                    <Zap className="w-4 h-4 mr-2" />
+                    Promote Services
+                  </Button>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Your Stats</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex justify-between">
+                    <span className="text-sm">Active Services</span>
+                    <span className="text-sm font-semibold">3</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm">Total Sales</span>
+                    <span className="text-sm font-semibold">$2,450</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm">This Month</span>
+                    <span className="text-sm font-semibold">$650</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-sm">Rating</span>
+                    <div className="flex items-center">
+                      <Star className="w-3 h-3 fill-yellow-400 text-yellow-400 mr-1" />
+                      <span className="text-sm font-semibold">4.9</span>
+                    </div>
                   </div>
                 </CardContent>
               </Card>
