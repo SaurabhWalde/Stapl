@@ -24,6 +24,9 @@ const Index = () => {
               <Button asChild variant="outline" size="sm">
                 <Link to="/avatar-analysis">3D Avatar</Link>
               </Button>
+              <Button asChild variant="outline" size="sm">
+                <Link to="/nutrition-store">Nutrition Store</Link>
+              </Button>
               <Button asChild size="sm">
                 <Link to="/coach">Coach Dashboard</Link>
               </Button>
@@ -47,7 +50,7 @@ const Index = () => {
 
       {/* Features Section */}
       <section id="features" className="py-12 bg-gray-50">
-        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Feature Card 1 */}
           <div className="bg-white shadow-md rounded-lg p-6">
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Motion Capture Analysis</h3>
@@ -69,6 +72,14 @@ const Index = () => {
             <h3 className="text-xl font-semibold text-gray-900 mb-2">Real-time Feedback</h3>
             <p className="text-gray-600">
               Get instant feedback on your form and technique during workouts.
+            </p>
+          </div>
+
+          {/* Feature Card 4 - New Nutrition Store */}
+          <div className="bg-white shadow-md rounded-lg p-6">
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">AI Nutrition Store</h3>
+            <p className="text-gray-600">
+              Get personalized supplement recommendations and nutrition plans.
             </p>
           </div>
         </div>
