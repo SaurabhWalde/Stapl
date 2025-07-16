@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,10 +18,10 @@ import {
   Globe,
   Star
 } from "lucide-react";
-import { AICoachCard } from "@/components/AICoachCard";
-import { WorkoutSection } from "@/components/WorkoutSection";
-import { HealthMetricsGrid } from "@/components/HealthMetricsGrid";
-import { RecoveryInsights } from "@/components/RecoveryInsights";
+import AICoachCard from "@/components/AICoachCard";
+import WorkoutSection from "@/components/WorkoutSection";
+import HealthMetricsGrid from "@/components/HealthMetricsGrid";
+import RecoveryInsights from "@/components/RecoveryInsights";
 
 const Index = () => {
   return (
