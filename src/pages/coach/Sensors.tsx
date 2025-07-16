@@ -1,293 +1,299 @@
 
 import React, { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Progress } from '@/components/ui/progress';
 import { 
-  Activity, 
-  Bluetooth, 
   Wifi, 
+  WifiOff, 
   Battery, 
-  Plus, 
-  Settings, 
+  Bluetooth, 
+  Activity, 
+  Heart, 
   Zap,
-  Heart,
-  Scale,
-  Watch,
-  Smartphone,
-  Dumbbell,
-  Thermometer,
-  Eye,
+  Settings,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
   Signal
 } from 'lucide-react';
 
+interface Sensor {
+  id: string;
+  name: string;
+  type: string;
+  connected: boolean;
+  battery: number;
+  connectionType: 'bluetooth' | 'wifi' | 'usb';
+  status: 'active' | 'idle' | 'error';
+  lastSync: string;
+  image: string;
+}
+
 const Sensors = () => {
-  const [connectedSensors, setConnectedSensors] = useState([
+  const [sensors, setSensors] = useState<Sensor[]>([
     {
-      id: 1,
-      name: "Force Deck Pro",
-      type: "Force Platform",
-      status: "connected",
+      id: '1',
+      name: 'Force Deck Pro',
+      type: 'Force Platform',
+      connected: true,
       battery: 85,
-      connection: "bluetooth",
-      lastSync: "2 mins ago",
-      icon: Dumbbell,
-      color: "from-purple-500 to-indigo-500"
+      connectionType: 'wifi',
+      status: 'active',
+      lastSync: '2 min ago',
+      image: 'https://images.unsplash.com/photo-1576091160399-112ba8d25d1f'
     },
     {
-      id: 2,
-      name: "Polar H10",
-      type: "Heart Rate Monitor",
-      status: "connected",
-      battery: 62,
-      connection: "bluetooth",
-      lastSync: "1 min ago",
-      icon: Heart,
-      color: "from-red-500 to-pink-500"
+      id: '2',
+      name: 'Polar H10',
+      type: 'Heart Rate Monitor',
+      connected: true,
+      battery: 72,
+      connectionType: 'bluetooth',
+      status: 'active',
+      lastSync: '1 min ago',
+      image: 'https://images.unsplash.com/photo-1544966503-7cc5ac882d5d'
     },
     {
-      id: 3,
-      name: "InBody 970",
-      type: "Body Composition Scanner",
-      status: "connected",
-      battery: null,
-      connection: "wifi",
-      lastSync: "5 mins ago",
-      icon: Scale,
-      color: "from-green-500 to-emerald-500"
+      id: '3',
+      name: 'InBody 970',
+      type: 'Body Composition',
+      connected: false,
+      battery: 0,
+      connectionType: 'wifi',
+      status: 'idle',
+      lastSync: '2 hours ago',
+      image: 'https://images.unsplash.com/photo-1559757148-5c350d0d3c56'
+    },
+    {
+      id: '4',
+      name: 'Apple Watch Series 9',
+      type: 'Fitness Tracker',
+      connected: true,
+      battery: 64,
+      connectionType: 'bluetooth',
+      status: 'active',
+      lastSync: 'Just now',
+      image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256'
+    },
+    {
+      id: '5',
+      name: 'WHOOP 4.0',
+      type: 'Recovery Tracker',
+      connected: true,
+      battery: 91,
+      connectionType: 'bluetooth',
+      status: 'active',
+      lastSync: '30 sec ago',
+      image: 'https://images.unsplash.com/photo-1576243345690-4e4b79b63288'
+    },
+    {
+      id: '6',
+      name: 'Oura Ring Gen3',
+      type: 'Sleep & Recovery',
+      connected: false,
+      battery: 45,
+      connectionType: 'bluetooth',
+      status: 'error',
+      lastSync: '1 day ago',
+      image: 'https://images.unsplash.com/photo-1609081219090-a6d81d3085bf'
     }
   ]);
 
-  const availableSensors = [
-    {
-      name: "Apple Watch Series 9",
-      type: "Fitness Tracker",
-      icon: Watch,
-      color: "from-blue-500 to-cyan-500",
-      compatibility: "iOS/Android"
-    },
-    {
-      name: "WHOOP 4.0",
-      type: "Recovery Tracker",
-      icon: Activity,
-      color: "from-orange-500 to-red-500",
-      compatibility: "Universal"
-    },
-    {
-      name: "Oura Ring Gen3",
-      type: "Sleep & Recovery",
-      icon: Zap,
-      color: "from-purple-500 to-pink-500",
-      compatibility: "Universal"
-    },
-    {
-      name: "Garmin Venu 3",
-      type: "GPS Fitness Watch",
-      icon: Watch,
-      color: "from-teal-500 to-green-500",
-      compatibility: "Universal"
-    },
-    {
-      name: "Fitbit Sense 2",
-      type: "Health Tracker",
-      icon: Heart,
-      color: "from-indigo-500 to-blue-500",
-      compatibility: "Universal"
-    },
-    {
-      name: "DEXA Scanner",
-      type: "Body Composition",
-      icon: Eye,
-      color: "from-gray-500 to-slate-500",
-      compatibility: "Professional"
+  const toggleConnection = (id: string) => {
+    setSensors(sensors.map(sensor => 
+      sensor.id === id 
+        ? { ...sensor, connected: !sensor.connected, status: !sensor.connected ? 'active' : 'idle' }
+        : sensor
+    ));
+  };
+
+  const getConnectionIcon = (type: string) => {
+    switch (type) {
+      case 'bluetooth': return <Bluetooth className="w-4 h-4" />;
+      case 'wifi': return <Wifi className="w-4 h-4" />;
+      case 'usb': return <Zap className="w-4 h-4" />;
+      default: return <Signal className="w-4 h-4" />;
     }
-  ];
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'connected': return 'bg-green-100 text-green-700';
-      case 'connecting': return 'bg-yellow-100 text-yellow-700';
-      case 'disconnected': return 'bg-red-100 text-red-700';
-      default: return 'bg-gray-100 text-gray-700';
+      case 'active': return 'bg-green-500';
+      case 'idle': return 'bg-yellow-500';
+      case 'error': return 'bg-red-500';
+      default: return 'bg-gray-500';
     }
   };
 
-  const toggleSensorConnection = (sensorId: number) => {
-    setConnectedSensors(prev => 
-      prev.map(sensor => 
-        sensor.id === sensorId 
-          ? { ...sensor, status: sensor.status === 'connected' ? 'disconnected' : 'connected' }
-          : sensor
-      )
-    );
-  };
+  const connectedSensors = sensors.filter(s => s.connected).length;
+  const activeSensors = sensors.filter(s => s.status === 'active').length;
+  const avgBattery = Math.round(sensors.reduce((acc, s) => acc + s.battery, 0) / sensors.length);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-gray-50">
-      <div className="p-6 space-y-6">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -top-8 -left-8 w-96 h-96 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute top-1/2 -right-12 w-80 h-80 bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute -bottom-12 left-1/4 w-72 h-72 bg-cyan-400/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+      </div>
+
+      <div className="p-6 space-y-6 relative">
         {/* Header */}
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold text-gray-900">Sensor Dashboard</h1>
-            <p className="text-gray-600 mt-1">Manage and monitor your connected fitness devices</p>
-          </div>
-          <Button className="bg-gradient-to-r from-slate-600 to-gray-600 hover:from-slate-700 hover:to-gray-700">
-            <Plus className="w-4 h-4 mr-2" />
-            Add New Sensor
-          </Button>
+        <div className="text-center mb-8">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Sensors Dashboard</h1>
+          <p className="text-gray-600 text-lg">Monitor and manage all your connected fitness devices</p>
         </div>
 
-        {/* Connected Sensors Overview */}
+        {/* Overview Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Connected Devices</p>
-                  <p className="text-3xl font-bold text-gray-900">{connectedSensors.filter(s => s.status === 'connected').length}</p>
+          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm hover:shadow-xl transition-shadow">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center justify-between text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                    <CheckCircle className="w-4 h-4 text-green-600" />
+                  </div>
+                  <span>Connected Devices</span>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                  <Signal className="w-6 h-6 text-white" />
-                </div>
-              </div>
+                <span className="text-2xl font-bold text-green-600">{connectedSensors}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">of {sensors.length} total devices</p>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Active Monitoring</p>
-                  <p className="text-3xl font-bold text-gray-900">24/7</p>
+          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm hover:shadow-xl transition-shadow">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center justify-between text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                    <Activity className="w-4 h-4 text-blue-600" />
+                  </div>
+                  <span>Active Sensors</span>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg flex items-center justify-center">
-                  <Activity className="w-6 h-6 text-white" />
-                </div>
-              </div>
+                <span className="text-2xl font-bold text-blue-600">{activeSensors}</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p className="text-sm text-muted-foreground">Currently monitoring</p>
             </CardContent>
           </Card>
 
-          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
-            <CardContent className="p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <p className="text-sm text-gray-600">Data Points</p>
-                  <p className="text-3xl font-bold text-gray-900">15.2K</p>
+          <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm hover:shadow-xl transition-shadow">
+            <CardHeader className="pb-2">
+              <CardTitle className="flex items-center justify-between text-sm">
+                <div className="flex items-center space-x-2">
+                  <div className="w-8 h-8 bg-yellow-100 rounded-full flex items-center justify-center">
+                    <Battery className="w-4 h-4 text-yellow-600" />
+                  </div>
+                  <span>Avg Battery</span>
                 </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-                  <Zap className="w-6 h-6 text-white" />
-                </div>
-              </div>
+                <span className="text-2xl font-bold text-yellow-600">{avgBattery}%</span>
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Progress value={avgBattery} className="h-2" />
             </CardContent>
           </Card>
         </div>
 
-        {/* Connected Sensors */}
-        <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Signal className="w-5 h-5" />
-              <span>Connected Sensors</span>
-            </CardTitle>
-            <CardDescription>Manage your active sensor connections and monitor their status</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4">
-              {connectedSensors.map((sensor) => {
-                const IconComponent = sensor.icon;
-                return (
-                  <div key={sensor.id} className="flex items-center justify-between p-4 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors">
-                    <div className="flex items-center space-x-4">
-                      <div className={`w-12 h-12 bg-gradient-to-r ${sensor.color} rounded-lg flex items-center justify-center`}>
-                        <IconComponent className="w-6 h-6 text-white" />
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-gray-900">{sensor.name}</h3>
-                        <p className="text-sm text-gray-600">{sensor.type}</p>
-                        <div className="flex items-center space-x-2 mt-1">
-                          <Badge variant="secondary" className={getStatusColor(sensor.status)}>
-                            {sensor.status}
-                          </Badge>
-                          <span className="text-xs text-gray-500">Last sync: {sensor.lastSync}</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center space-x-4">
-                      {sensor.battery && (
-                        <div className="flex items-center space-x-2">
-                          <Battery className="w-4 h-4 text-gray-500" />
-                          <div className="w-16">
-                            <Progress value={sensor.battery} className="h-2" />
-                          </div>
-                          <span className="text-sm text-gray-600">{sensor.battery}%</span>
-                        </div>
-                      )}
-                      
-                      <div className="flex items-center space-x-2">
-                        {sensor.connection === 'bluetooth' ? (
-                          <Bluetooth className="w-4 h-4 text-blue-500" />
-                        ) : (
-                          <Wifi className="w-4 h-4 text-green-500" />
-                        )}
-                      </div>
-                      
-                      <Switch 
-                        checked={sensor.status === 'connected'} 
-                        onCheckedChange={() => toggleSensorConnection(sensor.id)}
+        {/* Sensors Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sensors.map((sensor) => (
+            <Card key={sensor.id} className="border-0 shadow-lg bg-white/60 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex items-center space-x-3">
+                    <div className="relative">
+                      <img 
+                        src={sensor.image} 
+                        alt={sensor.name}
+                        className="w-12 h-12 rounded-lg object-cover"
                       />
-                      
-                      <Button variant="ghost" size="sm">
-                        <Settings className="w-4 h-4" />
-                      </Button>
+                      <div className={`absolute -top-1 -right-1 w-4 h-4 rounded-full ${getStatusColor(sensor.status)} border-2 border-white`}></div>
+                    </div>
+                    <div>
+                      <CardTitle className="text-lg">{sensor.name}</CardTitle>
+                      <p className="text-sm text-muted-foreground">{sensor.type}</p>
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </Card>
+                  <Switch 
+                    checked={sensor.connected} 
+                    onCheckedChange={() => toggleConnection(sensor.id)}
+                  />
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-4">
+                {/* Connection Status */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    {getConnectionIcon(sensor.connectionType)}
+                    <span className="text-sm capitalize">{sensor.connectionType}</span>
+                  </div>
+                  <Badge variant={sensor.connected ? "default" : "secondary"}>
+                    {sensor.connected ? "Connected" : "Disconnected"}
+                  </Badge>
+                </div>
 
-        {/* Available Sensors */}
-        <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="flex items-center space-x-2">
-              <Plus className="w-5 h-5" />
-              <span>Available Sensors</span>
-            </CardTitle>
-            <CardDescription>Discover and connect new fitness tracking devices</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {availableSensors.map((sensor, index) => {
-                const IconComponent = sensor.icon;
-                return (
-                  <Card key={index} className="border border-gray-200 hover:shadow-md transition-shadow cursor-pointer">
-                    <CardContent className="p-4">
-                      <div className="flex items-center space-x-3 mb-3">
-                        <div className={`w-10 h-10 bg-gradient-to-r ${sensor.color} rounded-lg flex items-center justify-center`}>
-                          <IconComponent className="w-5 h-5 text-white" />
-                        </div>
-                        <div>
-                          <h4 className="font-semibold text-gray-900">{sensor.name}</h4>
-                          <p className="text-sm text-gray-600">{sensor.type}</p>
-                        </div>
+                {/* Battery Level */}
+                {sensor.connected && (
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <Battery className="w-4 h-4" />
+                        <span className="text-sm">Battery</span>
                       </div>
-                      <div className="flex items-center justify-between">
-                        <Badge variant="outline" className="text-xs">
-                          {sensor.compatibility}
-                        </Badge>
-                        <Button size="sm" variant="outline">
-                          Connect
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                );
-              })}
+                      <span className="text-sm font-medium">{sensor.battery}%</span>
+                    </div>
+                    <Progress value={sensor.battery} className="h-2" />
+                  </div>
+                )}
+
+                {/* Last Sync */}
+                <div className="flex items-center justify-between text-sm text-muted-foreground">
+                  <div className="flex items-center space-x-2">
+                    <Clock className="w-4 h-4" />
+                    <span>Last sync</span>
+                  </div>
+                  <span>{sensor.lastSync}</span>
+                </div>
+
+                {/* Actions */}
+                <div className="flex space-x-2 pt-2">
+                  <Button size="sm" variant="outline" className="flex-1">
+                    <Settings className="w-4 h-4 mr-2" />
+                    Settings
+                  </Button>
+                  {sensor.status === 'error' && (
+                    <Button size="sm" variant="destructive" className="flex-1">
+                      <AlertTriangle className="w-4 h-4 mr-2" />
+                      Fix
+                    </Button>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+
+        {/* Add New Sensor */}
+        <Card className="border-2 border-dashed border-gray-300 bg-white/40 backdrop-blur-sm hover:border-blue-400 transition-colors cursor-pointer">
+          <CardContent className="flex flex-col items-center justify-center py-12">
+            <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-4 hover:scale-110 transition-transform">
+              <Activity className="w-8 h-8 text-blue-600" />
             </div>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">Add New Sensor</h3>
+            <p className="text-gray-600 text-center mb-4">Connect a new fitness device to expand your monitoring capabilities</p>
+            <Button className="bg-blue-600 hover:bg-blue-700">
+              <Zap className="w-4 h-4 mr-2" />
+              Scan for Devices
+            </Button>
           </CardContent>
         </Card>
       </div>
