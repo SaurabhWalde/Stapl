@@ -20,6 +20,8 @@ import {
 import { PoseDetector } from './PoseDetector';
 import { FormAnalyzer } from './FormAnalyzer';
 import { VirtualCoachOverlay } from './VirtualCoachOverlay';
+import { MultiCameraCapture } from './MultiCameraCapture';
+import { MarkerlessCapture } from './MarkerlessCapture';
 
 export function MotionCaptureStudio() {
   const [isRecording, setIsRecording] = useState(false);
@@ -28,6 +30,7 @@ export function MotionCaptureStudio() {
   const [selectedCoach, setSelectedCoach] = useState('alex');
   const [formScore, setFormScore] = useState(0);
   const [feedback, setFeedback] = useState<string[]>([]);
+  const [captureMode, setCaptureMode] = useState<'single' | 'multi' | 'markerless'>('markerless');
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -74,19 +77,35 @@ export function MotionCaptureStudio() {
             <h1 className="text-3xl font-bold text-gray-900">Motion Capture Studio</h1>
             <p className="text-gray-600">AI-powered form correction and virtual coaching</p>
           </div>
-          <Badge variant="secondary" className="bg-blue-100 text-blue-700">
-            <Video className="w-4 h-4 mr-2" />
-            Motion Tracking Active
-          </Badge>
+          <div className="flex items-center space-x-2">
+            <select 
+              value={captureMode} 
+              onChange={(e) => setCaptureMode(e.target.value as any)}
+              className="px-3 py-1 rounded-md border text-sm"
+            >
+              <option value="markerless">Markerless AI</option>
+              <option value="multi">Multi-Camera</option>
+              <option value="single">Single Camera</option>
+            </select>
+            <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+              <Video className="w-4 h-4 mr-2" />
+              {captureMode === 'markerless' ? 'AI Tracking' : captureMode === 'multi' ? 'Multi-Cam' : 'Single Cam'} Active
+            </Badge>
+          </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Main Video Feed */}
-          <div className="lg:col-span-2">
+          {/* Main Capture Interface */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Capture Mode Controls */}
             <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
-                  <span>Live Motion Capture</span>
+                  <span>
+                    {captureMode === 'markerless' ? 'AI-Powered Markerless Capture' :
+                     captureMode === 'multi' ? 'Multi-Camera Motion Capture' : 
+                     'Single Camera Motion Capture'}
+                  </span>
                   <div className="flex items-center space-x-2">
                     <Button
                       variant={isRecording ? "destructive" : "default"}
@@ -109,37 +128,59 @@ export function MotionCaptureStudio() {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-video">
-                  <video
-                    ref={videoRef}
-                    className="w-full h-full object-cover"
-                    autoPlay
-                    muted
-                    playsInline
+                {/* Render different capture interfaces based on mode */}
+                {captureMode === 'multi' && (
+                  <MultiCameraCapture 
+                    onPoseDetected={handlePoseDetected}
+                    exercise={selectedExercise}
+                    isActive={isRecording}
                   />
-                  <canvas
-                    ref={canvasRef}
-                    className="absolute inset-0 w-full h-full"
-                    style={{ pointerEvents: 'none' }}
+                )}
+                
+                {captureMode === 'markerless' && (
+                  <MarkerlessCapture 
+                    onAnalysisUpdate={(analysis) => {
+                      setFormScore(analysis.score);
+                      setFeedback(analysis.feedback);
+                    }}
+                    exercise={selectedExercise}
+                    isActive={isRecording}
                   />
-                  
-                  {/* Virtual Coach Overlay */}
-                  {isRecording && (
-                    <VirtualCoachOverlay 
-                      coach={coaches.find(c => c.id === selectedCoach)} 
-                      feedback={feedback}
-                      formScore={formScore}
+                )}
+                
+                {captureMode === 'single' && (
+                  <div className="relative bg-gray-900 rounded-lg overflow-hidden aspect-video">
+                    <video
+                      ref={videoRef}
+                      className="w-full h-full object-cover"
+                      autoPlay
+                      muted
+                      playsInline
                     />
-                  )}
-                  
-                  {/* Recording Indicator */}
-                  {isRecording && (
-                    <div className="absolute top-4 left-4 flex items-center space-x-2">
-                      <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
-                      <span className="text-white text-sm font-medium">RECORDING</span>
-                    </div>
-                  )}
-                </div>
+                    <canvas
+                      ref={canvasRef}
+                      className="absolute inset-0 w-full h-full"
+                      style={{ pointerEvents: 'none' }}
+                    />
+                    
+                    {/* Virtual Coach Overlay */}
+                    {isRecording && (
+                      <VirtualCoachOverlay 
+                        coach={coaches.find(c => c.id === selectedCoach)} 
+                        feedback={feedback}
+                        formScore={formScore}
+                      />
+                    )}
+                    
+                    {/* Recording Indicator */}
+                    {isRecording && (
+                      <div className="absolute top-4 left-4 flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-red-500 rounded-full animate-pulse"></div>
+                        <span className="text-white text-sm font-medium">RECORDING</span>
+                      </div>
+                    )}
+                  </div>
+                )}
               </CardContent>
             </Card>
 
@@ -264,8 +305,8 @@ export function MotionCaptureStudio() {
           </div>
         </div>
 
-        {/* Pose Detector Component */}
-        {isAnalyzing && (
+        {/* Pose Detector Component - only for single camera mode */}
+        {isAnalyzing && captureMode === 'single' && (
           <PoseDetector
             videoRef={videoRef}
             canvasRef={canvasRef}
@@ -274,8 +315,8 @@ export function MotionCaptureStudio() {
           />
         )}
 
-        {/* Form Analyzer Component */}
-        {isAnalyzing && (
+        {/* Form Analyzer Component - only for single camera mode */}
+        {isAnalyzing && captureMode === 'single' && (
           <FormAnalyzer
             exercise={selectedExercise}
             onAnalysisUpdate={(analysis) => {

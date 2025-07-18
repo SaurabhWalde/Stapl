@@ -20,6 +20,8 @@ import { PostureAnalysis } from './PostureAnalysis';
 import { BodyMetrics } from './BodyMetrics';
 import { RealtimeMotionCapture } from './RealtimeMotionCapture';
 import { ScanResultsPanel } from './ScanResultsPanel';
+import { MultiCameraCapture } from '../motion-capture/MultiCameraCapture';
+import { MarkerlessCapture } from '../motion-capture/MarkerlessCapture';
 
 export function AvatarAnalysisStudio() {
   const [isScanning, setIsScanning] = useState(false);
@@ -27,6 +29,7 @@ export function AvatarAnalysisStudio() {
   const [selectedView, setSelectedView] = useState('front');
   const [scanData, setScanData] = useState(null);
   const [showScanResults, setShowScanResults] = useState(false);
+  const [scanMode, setScanMode] = useState<'basic' | 'multi' | 'markerless'>('markerless');
 
   const postureData = {
     overallScore: 82,
@@ -74,9 +77,18 @@ export function AvatarAnalysisStudio() {
             <p className="text-gray-600">AI-powered real-time body analysis and posture assessment</p>
           </div>
           <div className="flex items-center space-x-3">
+            <select 
+              value={scanMode} 
+              onChange={(e) => setScanMode(e.target.value as any)}
+              className="px-3 py-1 rounded-md border text-sm"
+            >
+              <option value="markerless">Markerless AI Scan</option>
+              <option value="multi">Multi-Camera Scan</option>
+              <option value="basic">Basic 3D Scan</option>
+            </select>
             <Badge variant="secondary" className="bg-green-100 text-green-700">
               <Scan className="w-4 h-4 mr-2" />
-              Motion Capture Ready
+              {scanMode === 'markerless' ? 'AI Ready' : scanMode === 'multi' ? 'Multi-Cam Ready' : 'Basic Ready'}
             </Badge>
             {!isScanning ? (
               <Button 
@@ -101,10 +113,46 @@ export function AvatarAnalysisStudio() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Motion Capture Scanner */}
           <div className="space-y-6">
-            <RealtimeMotionCapture 
-              onScanComplete={handleScanComplete}
-              isActive={isScanning}
-            />
+            {scanMode === 'basic' && (
+              <RealtimeMotionCapture 
+                onScanComplete={handleScanComplete}
+                isActive={isScanning}
+              />
+            )}
+            
+            {scanMode === 'multi' && (
+              <MultiCameraCapture 
+                onPoseDetected={(landmarks, analysis) => {
+                  if (analysis) {
+                    handleScanComplete({
+                      landmarks,
+                      analysis,
+                      timestamp: Date.now(),
+                      scanType: 'multi-camera'
+                    });
+                  }
+                }}
+                exercise="body_scan"
+                isActive={isScanning}
+              />
+            )}
+            
+            {scanMode === 'markerless' && (
+              <MarkerlessCapture 
+                onAnalysisUpdate={(analysis) => {
+                  if (analysis) {
+                    handleScanComplete({
+                      analysis,
+                      timestamp: Date.now(),
+                      scanType: 'markerless-ai'
+                    });
+                  }
+                }}
+                exercise="body_scan"
+                isActive={isScanning}
+              />
+            )}
+            
             {showScanResults && (
               <ScanResultsPanel 
                 scanData={scanData}
