@@ -48,6 +48,12 @@ const Index = () => {
                 </h1>
               </div>
               <div className="flex space-x-4">
+                <Link to="/dashboard">
+                  <Button variant="outline" className="hover:bg-blue-50 border-blue-200">
+                    <Activity className="w-4 h-4 mr-2" />
+                    Dashboard
+                  </Button>
+                </Link>
                 <Link to="/coach-network">
                   <Button variant="outline" className="hover:bg-blue-50 border-blue-200">
                     <UserPlus className="w-4 h-4 mr-2" />
@@ -86,10 +92,10 @@ const Index = () => {
                 </div>
                 
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <Link to="/coach">
+                  <Link to="/dashboard">
                     <Button size="lg" className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300">
                       <TrendingUp className="w-5 h-5 mr-2" />
-                      Start Coaching
+                      Start Your Journey
                     </Button>
                   </Link>
                   <Link to="/motion-capture">
