@@ -104,6 +104,12 @@ const Index = () => {
                       Try Motion Capture
                     </Button>
                   </Link>
+                  <Link to="/social-feed">
+                    <Button size="lg" variant="outline" className="border-2 border-purple-200 hover:bg-purple-50 text-lg px-8 py-6 hover:shadow-lg transition-all duration-300">
+                      <Users className="w-5 h-5 mr-2" />
+                      Join Community
+                    </Button>
+                  </Link>
                 </div>
 
                 {/* Stats */}

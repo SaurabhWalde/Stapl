@@ -23,6 +23,7 @@ import Help from "./pages/Help";
 import NotFound from "./pages/NotFound";
 import NutritionStore from "./pages/NutritionStore";
 import CoachNetwork from "./pages/CoachNetwork";
+import SocialFeed from "./pages/SocialFeed";
 
 const queryClient = new QueryClient();
 
@@ -51,6 +52,7 @@ const App = () => (
             <Route path="/avatar-analysis" element={<AvatarAnalysis />} />
             <Route path="/nutrition-store" element={<NutritionStore />} />
             <Route path="/coach-network" element={<CoachNetwork />} />
+            <Route path="/social-feed" element={<SocialFeed />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>
