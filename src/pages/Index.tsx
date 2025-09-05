@@ -37,37 +37,38 @@ const Index = () => {
 
         <div className="relative z-10">
           {/* Navigation */}
-          <nav className="p-6">
-            <div className="max-w-7xl mx-auto flex justify-between items-center">
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-                  <Activity className="w-6 h-6 text-white" />
-                </div>
-                <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
-                  SmartFit Pro
-                </h1>
+          <header className="px-6 lg:px-8 h-16 flex items-center justify-between border-b border-gray-200 bg-white/80 backdrop-blur-sm">
+            <div className="flex items-center space-x-2">
+              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
+                <Activity className="w-5 h-5 text-white" />
               </div>
-              <div className="flex space-x-4">
-                <Link to="/dashboard">
-                  <Button variant="outline" className="hover:bg-blue-50 border-blue-200">
-                    <Activity className="w-4 h-4 mr-2" />
-                    Dashboard
-                  </Button>
-                </Link>
-                <Link to="/coach-network">
-                  <Button variant="outline" className="hover:bg-blue-50 border-blue-200">
-                    <UserPlus className="w-4 h-4 mr-2" />
-                    Join Network
-                  </Button>
-                </Link>
-                <Link to="/coach">
-                  <Button className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 shadow-lg">
-                    Get Started
-                  </Button>
-                </Link>
-              </div>
+              <span className="text-xl font-bold text-gray-900">SmartFit Pro</span>
             </div>
-          </nav>
+            
+            <nav className="hidden md:flex items-center space-x-8">
+              <Link to="/dashboard">
+                <Button 
+                  variant="ghost" 
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  Dashboard
+                </Button>
+              </Link>
+              <Link to="/coach-network">
+                <Button 
+                  variant="ghost"
+                  className="text-gray-600 hover:text-gray-900"
+                >
+                  Join Network
+                </Button>
+              </Link>
+              <Link to="/dashboard">
+                <Button>
+                  Get Started
+                </Button>
+              </Link>
+            </nav>
+          </header>
 
           {/* Hero Content */}
           <div className="max-w-7xl mx-auto px-6 pt-20 pb-32">
