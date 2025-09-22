@@ -11,7 +11,7 @@ export function TeamOverview() {
       <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm hover:shadow-xl transition-shadow cursor-pointer">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 text-black">
               <AlertTriangle className="w-4 h-4 text-red-500" />
               <span>High Risk Athletes</span>
             </div>
@@ -22,7 +22,7 @@ export function TeamOverview() {
           <div className="space-y-2">
             <Progress value={15} className="h-2 bg-red-100" />
             <p className="text-sm text-muted-foreground">4 of 24 athletes need attention</p>
-            <div className="flex justify-between text-xs">
+            <div className="flex justify-between text-xs text-black">
               <span>Fatigue Risk: 3</span>
               <span>Injury Risk: 1</span>
             </div>
@@ -34,7 +34,7 @@ export function TeamOverview() {
       <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm hover:shadow-xl transition-shadow cursor-pointer">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 text-black">
               <Activity className="w-4 h-4 text-green-500" />
               <span>Avg Recovery Score</span>
             </div>
@@ -45,7 +45,7 @@ export function TeamOverview() {
           <div className="space-y-2">
             <Progress value={82} className="h-2 bg-green-100" />
             <p className="text-sm text-muted-foreground">Team recovery trending up</p>
-            <div className="flex justify-between text-xs">
+            <div className="flex justify-between text-xs text-black">
               <span>Week: +5%</span>
               <span className="text-green-600 flex items-center">
                 <TrendingUp className="w-3 h-3 mr-1" />
@@ -60,7 +60,7 @@ export function TeamOverview() {
       <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm hover:shadow-xl transition-shadow cursor-pointer">
         <CardHeader className="pb-2">
           <CardTitle className="flex items-center justify-between text-sm">
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 text-black">
               <Zap className="w-4 h-4 text-yellow-500" />
               <span>Avg Weekly Strain</span>
             </div>
@@ -71,7 +71,7 @@ export function TeamOverview() {
           <div className="space-y-2">
             <Progress value={71} className="h-2 bg-yellow-100" />
             <p className="text-sm text-muted-foreground">Optimal training load range</p>
-            <div className="flex justify-between text-xs">
+            <div className="flex justify-between text-xs text-black">
               <span>Range: 12-16</span>
               <span>Target: ✓ Met</span>
             </div>

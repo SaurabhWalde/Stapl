@@ -39,7 +39,7 @@ export function PerformanceLeaderboard() {
   return (
     <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-black">
           <CardTitle className="flex items-center space-x-2">
             <Trophy className="w-5 h-5 text-yellow-500" />
             <span>Performance Leaderboard</span>
@@ -60,7 +60,7 @@ export function PerformanceLeaderboard() {
         </div>
       </CardHeader>
       
-      <CardContent className="space-y-4">
+      <CardContent className="space-y-4 text-black">
         {mockLeaderboard.map((athlete, index) => (
           <div key={athlete.name} className="flex items-center space-x-4 p-3 rounded-lg hover:bg-muted/30 transition-colors">
             <div className="flex items-center justify-center w-8">
@@ -80,7 +80,7 @@ export function PerformanceLeaderboard() {
           </div>
         ))}
         
-        <div className="pt-4 border-t">
+        <div className="pt-4 border-t text-white">
           <Button variant="outline" size="sm" className="w-full">
             View Full Rankings
           </Button>

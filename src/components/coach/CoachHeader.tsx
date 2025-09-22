@@ -10,7 +10,7 @@ export function CoachHeader() {
   return (
     <header className="bg-white/80 backdrop-blur-sm border-b border-blue-100 sticky top-0 z-50">
       <div className="flex items-center justify-between p-4">
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 text-black">
           <SidebarTrigger />
           
           <div className="flex items-center space-x-3">
@@ -18,7 +18,7 @@ export function CoachHeader() {
               <User className="w-4 h-4 text-white" />
             </div>
             <div>
-              <h1 className="text-lg font-semibold">Coach Sarah Wilson</h1>
+              <h1 className="text-lg font-semibold text-black">Coach Sarah Wilson</h1>
               <p className="text-sm text-muted-foreground">Elite Performance Center</p>
             </div>
           </div>
@@ -32,7 +32,7 @@ export function CoachHeader() {
             </Badge>
           </div>
           
-          <Badge variant="secondary" className="bg-green-100 text-green-700">
+          <Badge variant="secondary" className="bg-green-100 text-green-700 hover:bg-black hover:text-white">
             <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
             24 Athletes Active
           </Badge>

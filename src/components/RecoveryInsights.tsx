@@ -70,10 +70,11 @@ const RecoveryInsights = () => {
 
   return (
     <div className="space-y-6">
+      <div className="bg-gradient-to-br from-blue-200 to-teal-200 text-white p-4 rounded-lg shadow-md">
       {/* Recovery Score */}
       <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+          <CardTitle className="flex items-center space-x-2 text-black">
             <Activity className="w-5 h-5 text-blue-600" />
             <span>Recovery Overview</span>
           </CardTitle>
@@ -83,11 +84,11 @@ const RecoveryInsights = () => {
             <div className={`w-24 h-24 mx-auto mb-4 bg-gradient-to-r ${getScoreBackground(recoveryData.overallScore)} rounded-full flex items-center justify-center`}>
               <span className="text-2xl font-bold text-white">{recoveryData.overallScore}%</span>
             </div>
-            <h3 className="text-xl font-semibold mb-2">Recovery Score</h3>
+            <h3 className="text-xl font-semibold mb-2 text-black">Recovery Score</h3>
             <p className="text-gray-600 max-w-md mx-auto">{recoveryData.recommendation}</p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-black">
             <div className="text-center p-3 bg-gray-50 rounded-lg">
               <Heart className="w-6 h-6 mx-auto mb-2 text-red-500" />
               <p className="text-2xl font-bold">{recoveryData.restingHR}</p>
@@ -111,11 +112,13 @@ const RecoveryInsights = () => {
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Sleep Analysis */}
+      <div className="bg-gradient-to-br from-blue-200 to-teal-200 text-white p-4 rounded-lg shadow-md">
       <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+          <CardTitle className="flex items-center space-x-2 text-black">
             <Moon className="w-5 h-5 text-blue-600" />
             <span>Sleep Analysis</span>
           </CardTitle>
@@ -132,45 +135,47 @@ const RecoveryInsights = () => {
               </div>
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm">Sleep Efficiency</span>
-                  <span className="font-medium">{sleepData.sleepEfficiency}%</span>
+                  <span className="text-sm text-black">Sleep Efficiency</span>
+                  <span className="font-medium text-black">{sleepData.sleepEfficiency}%</span>
                 </div>
-                <Progress value={sleepData.sleepEfficiency} className="h-2" />
+                <Progress value={sleepData.sleepEfficiency} className="h-2 bg-black [&>div]:bg-green-400 [&>div]:rounded-full"/>
               </div>
             </div>
             <div className="space-y-4">
-              <h4 className="font-semibold">Sleep Stages</h4>
+              <h4 className="font-semibold text-black">Sleep Stages</h4>
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-sm">Deep Sleep</span>
-                  <span className="font-medium">{sleepData.deepSleep}</span>
+                  <span className="text-sm text-black">Deep Sleep</span>
+                  <span className="font-medium text-black">{sleepData.deepSleep}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm">REM Sleep</span>
-                  <span className="font-medium">{sleepData.remSleep}</span>
+                  <span className="text-sm text-black">REM Sleep</span>
+                  <span className="font-medium text-black">{sleepData.remSleep}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm">Light Sleep</span>
-                  <span className="font-medium">{sleepData.lightSleep}</span>
+                  <span className="text-sm text-black">Light Sleep</span>
+                  <span className="font-medium text-black">{sleepData.lightSleep}</span>
                 </div>
               </div>
               <div className="flex justify-between pt-3 border-t">
                 <div>
                   <p className="text-sm text-gray-600">Bedtime</p>
-                  <p className="font-medium">{sleepData.bedtime}</p>
+                  <p className="font-medium text-black">{sleepData.bedtime}</p>
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">Wake Time</p>
-                  <p className="font-medium">{sleepData.wakeTime}</p>
+                  <p className="font-medium text-black">{sleepData.wakeTime}</p>
                 </div>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
+      </div>
 
       {/* Recovery Insights */}
-      <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
+      <div className="bg-gradient-to-br from-blue-200 to-teal-200 text-white p-4 rounded-lg shadow-md">
+      <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm text-black">
         <CardHeader>
           <CardTitle>Recovery Insights</CardTitle>
         </CardHeader>
@@ -201,6 +206,7 @@ const RecoveryInsights = () => {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 };

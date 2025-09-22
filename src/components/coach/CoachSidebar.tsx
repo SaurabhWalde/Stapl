@@ -89,20 +89,24 @@ export function CoachSidebar() {
   const currentPath = location.pathname;
   const isCollapsed = state === "collapsed";
 
-  const isActive = (path: string) => currentPath === path;
+  const isActive = (path: string) => currentPath.startsWith(path);
 
   return (
-    <Sidebar className={isCollapsed ? "w-14" : "w-60"} collapsible="icon">
+    <Sidebar className={`${isCollapsed ? "w-20" : "w-64"} transition-all duration-300`} collapsible="icon">
       <SidebarHeader className="p-4">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-teal-600 rounded-lg flex items-center justify-center">
-            <Activity className="w-5 h-5 text-white" />
-          </div>
+ 
           {!isCollapsed && (
-            <div>
-              <h2 className="font-bold text-lg">SmartFit Coach</h2>
-              <p className="text-sm text-muted-foreground">Team Dashboard</p>
-            </div>
+             <div className="flex items-center space-x-0">
+                {/* Logo image */}
+                <img src="/logo.png" alt="STAPL Logo" className="w-14 h-14 object-contain animate-pulse" />
+
+                {/* Text content */}
+                <div>
+                  <h2 className="text-2xl font-bold italic font-serif bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">StapL</h2>
+                  <p className="text-sm text-muted-foreground">Team Dashboard</p>
+                </div>
+              </div>
           )}
         </div>
       </SidebarHeader>

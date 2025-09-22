@@ -81,11 +81,11 @@ const WorkoutSection = () => {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 ">
       {/* Quick Start Workouts */}
       <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+          <CardTitle className="flex items-center space-x-2 text-black">
             <Play className="w-5 h-5 text-blue-600" />
             <span>Quick Start</span>
           </CardTitle>
@@ -93,7 +93,7 @@ const WorkoutSection = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {quickWorkouts.map((workout, index) => (
-              <div key={index} className="p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border hover:shadow-md transition-all duration-300 group">
+              <div key={index} className="p-4 bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg border hover:shadow-md transition-all duration-300 group text-black">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
                     <span className="text-2xl">{workout.icon}</span>
@@ -128,20 +128,20 @@ const WorkoutSection = () => {
       {/* Workout History */}
       <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2">
+          <CardTitle className="flex items-center space-x-2 text-black">
             <TrendingUp className="w-5 h-5 text-blue-600" />
             <span>Recent Workouts</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {recentWorkouts.map((workout, index) => (
-            <div key={index} className="p-4 bg-gray-50 rounded-lg">
+            <div key={index} className="p-4 bg-gray-50 rounded-lg text-black">
               <div className="flex items-center justify-between mb-3">
                 <div>
                   <h4 className="font-semibold">{workout.name}</h4>
                   <p className="text-sm text-gray-600">{workout.date}</p>
                 </div>
-                <Button variant="ghost" size="sm">
+                <Button variant="ghost" size="sm" className="bg-black text-white">
                   View Details
                 </Button>
               </div>

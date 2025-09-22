@@ -25,6 +25,7 @@ import NutritionStore from "./pages/NutritionStore";
 import CoachNetwork from "./pages/CoachNetwork";
 import SocialFeed from "./pages/SocialFeed";
 
+
 const queryClient = new QueryClient();
 
 const App = () => (

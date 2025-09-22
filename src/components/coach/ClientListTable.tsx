@@ -37,7 +37,7 @@ export function ClientListTable() {
   return (
     <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
       <CardHeader>
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between text-black">
           <CardTitle className="flex items-center space-x-2">
             <span>Client List</span>
             <Badge variant="secondary">{filteredClients.length} total</Badge>
@@ -48,13 +48,13 @@ export function ClientListTable() {
               placeholder="Search clients..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="text-sm"
+              className="text-sm text-white"
             />
           </div>
         </div>
       </CardHeader>
       <CardContent>
-        <div className="rounded-md border">
+        <div className="rounded-md border text-black">
           <Table>
             <TableHeader>
               <TableRow>
@@ -81,7 +81,8 @@ export function ClientListTable() {
                   </TableCell>
                   <TableCell>{client.age}</TableCell>
                   <TableCell>
-                    <Badge variant={client.role === "Athlete" ? "default" : "outline"}>
+                    <Badge variant={client.role === "Athlete" ? "default" : "outline"} 
+                    className="!text-inherit !bg-inherit">
                       {client.role}
                     </Badge>
                   </TableCell>

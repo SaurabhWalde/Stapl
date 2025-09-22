@@ -43,7 +43,7 @@ const ClientList = () => {
                   <p className="text-gray-600">Manage your athletes and track their progress</p>
                 </div>
                 <div className="flex items-center space-x-3">
-                  <Button>
+                  <Button className="hover:bg-gray-900 hover:text-white">
                     <Plus className="w-4 h-4 mr-2" />
                     Add Client
                   </Button>
@@ -106,11 +106,11 @@ const ClientList = () => {
               </div>
 
               {/* Client Table */}
-              <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+              <Card className="border-0 shadow-lg bg-white/80 bg-sm">
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center space-x-2">
-                      <span>Client Directory</span>
+                      <span className="text-black">Client Directory</span>
                       <Badge variant="secondary">{filteredClients.length} clients</Badge>
                     </CardTitle>
                     <div className="flex items-center space-x-4">
@@ -131,7 +131,7 @@ const ClientList = () => {
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="rounded-md border">
+                  <div className="rounded-md border text-black">
                     <Table>
                       <TableHeader>
                         <TableRow>
@@ -153,7 +153,7 @@ const ClientList = () => {
                               </div>
                             </TableCell>
                             <TableCell>
-                              <Badge variant="outline">{client.sport}</Badge>
+                              <Badge variant="outline" className="text-black">{client.sport}</Badge>
                             </TableCell>
                             <TableCell>
                               <Badge variant={client.status === "Active" ? "default" : "secondary"}>

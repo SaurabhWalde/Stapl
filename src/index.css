@@ -6,6 +6,16 @@
 All colors MUST be HSL.
 */
 
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #f8f9fa; /* match your app background */
+ 
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;

@@ -52,7 +52,7 @@ export function Avatar3DPanel() {
     <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
       <CardHeader>
         <CardTitle className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 text-black">
             <User className="w-5 h-5 text-blue-500" />
             <span>3D Avatar Analysis</span>
           </div>
@@ -92,7 +92,7 @@ export function Avatar3DPanel() {
 
           {/* Quick Stats */}
           <div className="space-y-3">
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center text-black">
               <span className="text-sm">Posture Score</span>
               <div className="flex items-center space-x-2">
                 <span className="font-semibold">{currentData.postureScore}%</span>
@@ -100,21 +100,21 @@ export function Avatar3DPanel() {
               </div>
             </div>
 
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center text-black">
               <span className="text-sm">Risk Level</span>
               <Badge variant="secondary" className={getRiskColor(currentData.riskLevel)}>
                 {currentData.riskLevel.toUpperCase()}
               </Badge>
             </div>
 
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center text-black">
               <span className="text-sm">Last Scan</span>
               <span className="text-sm text-gray-600">{currentData.lastScan}</span>
             </div>
 
             {currentData.issues.length > 0 && (
               <div className="border-t pt-3">
-                <div className="flex items-center space-x-2 mb-2">
+                <div className="flex items-center space-x-2 mb-2 text-black">
                   <AlertTriangle className="w-4 h-4 text-yellow-500" />
                   <span className="text-sm font-medium">Key Issues</span>
                 </div>

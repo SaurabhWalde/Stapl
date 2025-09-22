@@ -44,7 +44,7 @@ export function ProgramAssignmentPanel() {
   return (
     <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle className="flex items-center space-x-2">
+        <CardTitle className="flex items-center space-x-2 text-black">
           <ClipboardList className="w-5 h-5 text-blue-500" />
           <span>Program Assignment</span>
         </CardTitle>
@@ -54,7 +54,7 @@ export function ProgramAssignmentPanel() {
         {/* Available Programs */}
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <h4 className="font-medium">Available Programs</h4>
+            <h4 className="font-medium text-black">Available Programs</h4>
             <Button size="sm" variant="outline">
               <Plus className="w-4 h-4 mr-2" />
               New Program
@@ -65,7 +65,7 @@ export function ProgramAssignmentPanel() {
             {programs.map((program) => (
               <div
                 key={program.id}
-                className="p-3 border rounded-lg cursor-move hover:bg-muted/50 transition-colors"
+                className="p-3 border rounded-lg cursor-move bg-black text-white transition-colors"
                 draggable
                 onDragStart={() => setDraggedProgram(program.id)}
               >
@@ -88,9 +88,9 @@ export function ProgramAssignmentPanel() {
 
         {/* Assignment Drop Zone */}
         <div className="space-y-3">
-          <h4 className="font-medium">Drop Zone - Assign to Athletes</h4>
+          <h4 className="font-medium text-black">Drop Zone - Assign to Athletes</h4>
           <div
-            className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center hover:border-primary/50 transition-colors"
+            className="border-2 border-dashed border-muted-foreground/25 rounded-lg p-6 text-center bg-black text-white transition-colors"
             onDragOver={(e) => e.preventDefault()}
             onDrop={(e) => {
               e.preventDefault();
@@ -109,10 +109,10 @@ export function ProgramAssignmentPanel() {
 
         {/* Recent Assignments */}
         <div className="space-y-3">
-          <h4 className="font-medium">Recent Assignments</h4>
+          <h4 className="font-medium text-black">Recent Assignments</h4>
           <div className="space-y-2">
             {recentAssignments.map((assignment, index) => (
-              <div key={index} className="flex items-center justify-between p-2 bg-muted/20 rounded">
+              <div key={index} className="flex items-center justify-between p-2 bg-black text-white rounded">
                 <div className="space-y-1">
                   <div className="text-sm font-medium">{assignment.athlete}</div>
                   <div className="text-xs text-muted-foreground">{assignment.program}</div>

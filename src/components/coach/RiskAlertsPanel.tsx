@@ -49,7 +49,7 @@ export function RiskAlertsPanel() {
   };
 
   return (
-    <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
+    <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm text-black">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
           <AlertTriangle className="w-5 h-5 text-orange-500" />
@@ -62,7 +62,7 @@ export function RiskAlertsPanel() {
           <Collapsible key={alert.id}>
             <CollapsibleTrigger asChild>
               <div 
-                className="w-full p-3 border rounded-lg hover:bg-muted/50 cursor-pointer transition-colors"
+                className="w-full p-3 border rounded-lg cursor-pointer transition-colors"
                 onClick={() => setExpandedAlert(expandedAlert === alert.id ? null : alert.id)}
               >
                 <div className="flex items-start justify-between">
@@ -85,8 +85,8 @@ export function RiskAlertsPanel() {
             </CollapsibleTrigger>
             
             <CollapsibleContent className="px-3 pb-3">
-              <div className="mt-3 p-3 bg-muted/30 rounded-lg space-y-3">
-                <div className="flex items-center space-x-2">
+              <div className="mt-3 p-3 bg-black rounded-lg space-y-3">
+                <div className="flex items-center space-x-2 text-white">
                   <Users className="w-4 h-4 text-muted-foreground" />
                   <span className="text-sm font-medium">Affected Athletes:</span>
                 </div>

@@ -43,7 +43,7 @@ export function CustomReportBuilder() {
   return (
     <Card className="border-0 shadow-lg bg-white/60 backdrop-blur-sm">
       <CardHeader>
-        <CardTitle className="flex items-center space-x-2">
+        <CardTitle className="flex items-center space-x-2 text-black">
           <FileText className="w-5 h-5 text-purple-500" />
           <span>Custom Report Builder</span>
         </CardTitle>
@@ -54,13 +54,13 @@ export function CustomReportBuilder() {
           {/* Metrics Selection */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h4 className="font-medium">Select Metrics</h4>
+              <h4 className="font-medium text-black">Select Metrics</h4>
               <Badge variant="secondary">{selectedMetrics.length} selected</Badge>
             </div>
             
             <div className="space-y-3">
               {availableMetrics.map((metric) => (
-                <div key={metric} className="flex items-center space-x-2">
+                <div key={metric} className="flex items-center space-x-2 text-black">
                   <Checkbox
                     id={metric}
                     checked={selectedMetrics.includes(metric)}
@@ -79,11 +79,11 @@ export function CustomReportBuilder() {
 
           {/* Date Range and Options */}
           <div className="space-y-4">
-            <h4 className="font-medium">Report Settings</h4>
+            <h4 className="font-medium text-black">Report Settings</h4>
             
             {/* Date Range Picker */}
             <div className="space-y-2">
-              <label className="text-sm font-medium">Date Range</label>
+              <label className="text-sm font-medium text-black">Date Range</label>
               <Popover open={showDatePicker} onOpenChange={setShowDatePicker}>
                 <PopoverTrigger asChild>
                   <Button
@@ -120,7 +120,7 @@ export function CustomReportBuilder() {
 
             {/* Quick Date Presets */}
             <div className="space-y-2">
-              <label className="text-sm font-medium">Quick Presets</label>
+              <label className="text-sm text-black font-medium">Quick Presets</label>
               <div className="flex flex-wrap gap-2">
                 {["Last 7 days", "Last 30 days", "This Month", "Last Month"].map((preset) => (
                   <Button key={preset} variant="outline" size="sm">
@@ -132,17 +132,17 @@ export function CustomReportBuilder() {
 
             {/* Additional Options */}
             <div className="space-y-3 pt-4 border-t">
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2 text-black">
                 <Checkbox id="includeCharts" />
-                <label htmlFor="includeCharts" className="text-sm">Include Charts & Graphs</label>
+                <label htmlFor="includeCharts" className="text-sm text-black">Include Charts & Graphs</label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox id="anonymizeData" />
-                <label htmlFor="anonymizeData" className="text-sm">Anonymize Athlete Data</label>
+                <label htmlFor="anonymizeData" className="text-sm text-black">Anonymize Athlete Data</label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox id="includeRecommendations" />
-                <label htmlFor="includeRecommendations" className="text-sm">Include AI Recommendations</label>
+                <label htmlFor="includeRecommendations" className="text-sm text-black">Include AI Recommendations</label>
               </div>
             </div>
           </div>

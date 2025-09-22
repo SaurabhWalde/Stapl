@@ -1,39 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="en" dir="ltr">
+
+<head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>STAPL – AI-Powered Fitness Coaching</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#3b82f6" />
     <meta name="description" content="AI-powered fitness coaching with motion capture technology" />
     <link rel="manifest" href="/manifest.json" />
-    <title>SmartFit Pro - AI-Powered Fitness Coaching</title>
+    <link rel="icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/logo.png" />
 
-    <meta property="og:title" content="health-sync-coach" />
-    <meta property="og:description" content="Lovable Generated Project" />
+    <!-- Open Graph -->
+    <meta property="og:title" content="STAPL | AI-Powered Fitness Coaching" />
+    <meta property="og:description" content="Personalized training powered by motion capture and AI. Transform your fitness journey with STAPL." />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
+    <meta property="og:url" content="https://yourdomain.com" />
+    <meta property="og:image" content="/logo.png" />
 
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@lovable_dev" />
-    <meta name="twitter:image" content="https://lovable.dev/opengraph-image-p98pqg.png" />
-  </head>
+    <meta name="twitter:site" content="@stapl_ai" />
+    <meta name="twitter:title" content="STAPL | AI-Powered Fitness Coaching" />
+    <meta name="twitter:description" content="Train smarter with STAPL — motion-aware coaching powered by AI." />
+    <meta name="twitter:image" content="/logo.png" />
+</head>
 
-  <body>
+<body>
+    <noscript>
+      <strong>We're sorry but STAPL requires JavaScript to function properly. Please enable it to continue.</strong>
+    </noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
     <script>
-      // Register service worker for PWA functionality
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then((registration) => {
-              console.log('SW registered: ', registration);
-            })
-            .catch((registrationError) => {
-              console.log('SW registration failed: ', registrationError);
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('Service Worker registered:', reg))
+                    .catch(err => console.error('Service Worker registration failed:', err));
             });
-        });
-      }
+        }
     </script>
-  </body>
+</body>
+
 </html>

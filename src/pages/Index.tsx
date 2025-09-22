@@ -1,3 +1,7 @@
+import { useState } from "react";
+import { Menu, X} from "lucide-react";
+import { NavLink } from 'react-router-dom';
+import { LayoutDashboard } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -23,7 +27,10 @@ import WorkoutSection from "@/components/WorkoutSection";
 import HealthMetricsGrid from "@/components/HealthMetricsGrid";
 import RecoveryInsights from "@/components/RecoveryInsights";
 
-const Index = () => {
+const Index = () => { 
+  const [isNavOpen, setIsNavOpen] = useState(false);
+
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-teal-50">
       {/* Hero Section with Background Animation */}
@@ -35,46 +42,138 @@ const Index = () => {
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-green-400/10 to-blue-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
         </div>
 
-        <div className="relative z-10">
+        <div className="relative z-10 ">
           {/* Navigation */}
-          <header className="px-6 lg:px-8 h-16 flex items-center justify-between border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
-                <Activity className="w-5 h-5 text-white" />
-              </div>
-              <span className="text-xl font-bold text-gray-900">SmartFit Pro</span>
+          <header className="p-6 lg:px-8 flex items-center justify-between bg-[#F3F9FF] backdrop-blur-sm">
+            <div className="flex items-center space-x-0">
+              {/* Logo Image */}
+              <img src="/logo.png" alt="STAPL Logo" className="w-14 h-14 object-contain animate-pulse" />
+
+              {/* Brand Name */}
+              <span className="text-2xl font-bold italic font-serif bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">
+                StapL
+              </span>
             </div>
+
+              <button
+              onClick={() => setIsNavOpen(!isNavOpen)}
+              className="md:hidden text-gray-700 hover:text-blue-600 focus:outline-none"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              </svg>
+            </button>
             
-            <nav className="hidden md:flex items-center space-x-8">
+            <nav className={`${
+                                  isNavOpen ? 'flex' : 'hidden'
+                                } flex-col md:flex md:flex-row items-center gap-3 md:gap-4
+                                absolute md:static top-full right-4 md:right-0 mt-2 md:mt-0
+                                bg-[#F3F9FF] md:bg-transparent
+                                p-4 md:p-0
+                                shadow-xl md:shadow-none
+                                rounded-xl md:rounded-none
+                                w-fit
+                                z-50 transition-all duration-300 ease-in-out`}>
               <Link to="/dashboard">
                 <Button 
                   variant="ghost" 
-                  className="text-gray-600 hover:text-gray-900"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap 
+                  font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 
+                  focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
+                  disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 
+                  rounded-md bg-black text-white border-2 border-transparent hover:bg-blue-600 hover:text-white 
+                  text-sm px-5 py-5 transition-all duration-300"
                 >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-activity w-4 h-4 mr-3"
+                  >
+                    <path d="M22 12h-2.48a2 2 0 0 0-1.93 1.46l-2.35 8.36a.25.25 0 0 1-.48 0L9.24 2.18a.25.25 0 0 0-.48 0l-2.35 8.36A2 2 0 0 1 4.49 12H2"></path>
+                  </svg>
                   Dashboard
                 </Button>
-              </Link>
+                </Link>
               <Link to="/coach-network">
                 <Button 
-                  variant="ghost"
-                  className="text-gray-600 hover:text-gray-900"
-                >
-                  Join Network
-                </Button>
+                    variant="ghost"
+                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap 
+                    font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 
+                    focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none 
+                    disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 h-9 rounded-md 
+                    bg-black text-white border-2 border-transparent hover:bg-blue-600 hover:text-white text-sm 
+                    px-4 py-5 transition-all duration-300"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="lucide lucide-user-plus w-4 h-4 mr-2"
+                    >
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="9" cy="7" r="4"></circle>
+                      <line x1="19" y1="8" x2="19" y2="14"></line>
+                      <line x1="22" y1="11" x2="16" y2="11"></line>
+                    </svg>
+                    Join Network
+                  </Button>
               </Link>
-              <Link to="/dashboard">
-                <Button>
+              <Link to="/coach">
+                <Button 
+                  variant="ghost"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap 
+                  font-medium ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+             disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
+             h-11 rounded-md bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 
+             text-lg px-3 py-4 shadow-xl hover:shadow-2xl transition-all duration-300 text-black"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-arrow-right w-4 h-4 mr-2"
+                  >
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                    <polyline points="12 5 19 12 12 19"></polyline>
+                  </svg>
                   Get Started
                 </Button>
+
               </Link>
             </nav>
+          
           </header>
 
           {/* Hero Content */}
           <div className="max-w-7xl mx-auto px-6 pt-20 pb-32">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div className="grid grid-cols-1 md:grid-cols-2 items-center gap-12">
               <div className="space-y-8">
-                <div className="space-y-6">
+                <div className="space-y-8">
                   <h2 className="text-5xl lg:text-6xl font-bold leading-tight">
                     <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-teal-600 bg-clip-text text-transparent">
                       Transform
@@ -92,25 +191,33 @@ const Index = () => {
                   </p>
                 </div>
                 
-                <div className="flex flex-col sm:flex-row gap-4">
+                <div className="relative z-20 flex flex-wrap gap-3">
                   <Link to="/dashboard">
-                    <Button size="lg" className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-lg px-8 py-6 shadow-xl hover:shadow-2xl transition-all duration-300">
-                      <TrendingUp className="w-5 h-5 mr-2" />
+                    <Button size="sm" className="inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium 
+             ring-offset-background focus-visible:outline-none focus-visible:ring-2 
+             focus-visible:ring-ring focus-visible:ring-offset-2 
+             disabled:pointer-events-none disabled:opacity-50 
+             [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
+             h-11 rounded-md bg-gradient-to-r from-blue-600 to-teal-600 
+             hover:from-blue-700 hover:to-teal-700 
+             text-lg px-3 py-5 shadow-xl hover:shadow-2xl 
+             transition-all duration-300 text-black hover:text-white">
+                      <TrendingUp className="w-4 h-4 mr-0" />
                       Start Your Journey
                     </Button>
                   </Link>
                   <Link to="/motion-capture">
-                    <Button size="lg" variant="outline" className="border-2 border-blue-200 hover:bg-blue-50 text-lg px-8 py-6 hover:shadow-lg transition-all duration-300">
-                      <Camera className="w-5 h-5 mr-2" />
+                    <Button size="sm" variant="outline" className="bg-black text-white border-2 border-transparent hover:bg-blue-600 hover:text-white text-sm px-3 py-5 transition-all duration-300">
+                      <Camera className="w-4 h-4 mr-1" />
                       Try Motion Capture
                     </Button>
                   </Link>
                   <Link to="/social-feed">
-                    <Button size="lg" variant="outline" className="border-2 border-purple-200 hover:bg-purple-50 text-lg px-8 py-6 hover:shadow-lg transition-all duration-300">
-                      <Users className="w-5 h-5 mr-2" />
+                    <Button size="sm" variant="outline" className="bg-black text-white border-2 border-transparent hover:bg-bluext-sm px-4 py-5 transition-all duration-300">
+                      <Users className="w-4 h-4 mr-2" />
                       Join Community
                     </Button>
-                  </Link>
+                  </Link>-600 hover:text-white te
                 </div>
 
                 {/* Stats */}
@@ -136,18 +243,18 @@ const Index = () => {
                   <img 
                     src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&h=600&fit=crop" 
                     alt="Fitness Training" 
-                    className="rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-300"
+                    className="rounded-2xl shadow-2xl hover:shadow-3xl transition-shadow duration-300 ml-0"
                   />
                   {/* Floating Elements */}
-                  <div className="absolute -top-6 -right-6 bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="absolute top-1 right-1 text-base font-bold bg-white-500 text-black px-4 py-2 rounded-lg shadow-md border border-None">
                     <div className="flex items-center space-x-2">
                       <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
                       <span className="text-sm font-semibold">Live Session</span>
                     </div>
                   </div>
-                  <div className="absolute -bottom-6 -left-6 bg-white rounded-xl p-4 shadow-lg hover:shadow-xl transition-shadow">
+                  <div className="absolute bottom-1 left-1 text-base font-bold bg-white-500 text-black px-3 py-2 rounded-lg shadow-md border border-None">
                     <div className="flex items-center space-x-2">
-                      <Award className="w-5 h-5 text-yellow-500" />
+                      <Award className="w-5 h-5 text-green-500" />
                       <span className="text-sm font-semibold">Goal Achieved!</span>
                     </div>
                   </div>
@@ -161,7 +268,7 @@ const Index = () => {
       </div>
 
       {/* Features Section */}
-      <div className="py-24 bg-white/50 backdrop-blur-sm">
+      <div className="py-24 bg-gradient-to-br from-blue-100 via-white to-teal-100 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h3 className="text-4xl font-bold text-gray-900 mb-4">
@@ -175,12 +282,12 @@ const Index = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Coach Dashboard Feature */}
             <Link to="/coach" className="group">
-              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-white/80 backdrop-blur-sm">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-#FAF6E9 backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Users className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl">Coach Dashboard</CardTitle>
+                  <CardTitle className="text-xl text-black">Coach Dashboard</CardTitle>
                   <CardDescription>Manage clients, track progress, and optimize performance</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -204,12 +311,12 @@ const Index = () => {
 
             {/* Motion Capture Feature */}
             <Link to="/motion-capture" className="group">
-              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-white/80 backdrop-blur-sm">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-#FAF6E9 backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Camera className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl">Motion Capture</CardTitle>
+                  <CardTitle className="text-xl text-black">Motion Capture</CardTitle>
                   <CardDescription>AI-powered form analysis and real-time feedback</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -233,12 +340,12 @@ const Index = () => {
 
             {/* 3D Avatar Feature */}
             <Link to="/avatar-analysis" className="group">
-              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-white/80 backdrop-blur-sm">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-#FAF6E9 backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Activity className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl">3D Avatar Analysis</CardTitle>
+                  <CardTitle className="text-xl text-black">3D Avatar Analysis</CardTitle>
                   <CardDescription>Advanced body composition and posture insights</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -262,12 +369,12 @@ const Index = () => {
 
             {/* Nutrition Store Feature */}
             <Link to="/nutrition-store" className="group">
-              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-white/80 backdrop-blur-sm">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-#FAF6E9 backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <ShoppingCart className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl">Nutrition Store</CardTitle>
+                  <CardTitle className="text-xl text-black">Nutrition Store</CardTitle>
                   <CardDescription>Personalized supplements and meal plans</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -291,12 +398,12 @@ const Index = () => {
 
             {/* Sensors Feature */}
             <Link to="/coach/sensors" className="group">
-              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-white/80 backdrop-blur-sm">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-#FAF6E9 backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Zap className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl">Smart Sensors</CardTitle>
+                  <CardTitle className="text-xl text-black">Smart Sensors</CardTitle>
                   <CardDescription>Connect wearables and fitness devices</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -320,12 +427,12 @@ const Index = () => {
 
             {/* Coach Network Feature */}
             <Link to="/coach-network" className="group">
-              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-white/80 backdrop-blur-sm">
+              <Card className="h-full hover:shadow-xl transition-all duration-300 group-hover:scale-105 border-0 bg-#FAF6E9 backdrop-blur-sm">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 bg-gradient-to-r from-violet-500 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg group-hover:shadow-xl transition-shadow">
                     <Globe className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-xl">Coach Network</CardTitle>
+                  <CardTitle className="text-xl text-black">Coach Network</CardTitle>
                   <CardDescription>Connect, share, and grow with fellow coaches</CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -351,7 +458,7 @@ const Index = () => {
       </div>
 
       {/* Dashboard Preview */}
-      <div className="py-24">
+      <div className="py-24 bg-gradient-to-br from-blue-100 via-white to-teal-100 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h3 className="text-4xl font-bold text-gray-900 mb-4">
@@ -380,7 +487,7 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h3 className="text-4xl font-bold text-white mb-4">
-              Why Choose SmartFit Pro?
+              Why Choose STAPL Pro?
             </h3>
             <p className="text-xl text-blue-100 max-w-2xl mx-auto">
               Join thousands of coaches who have transformed their practice with our platform
@@ -421,14 +528,14 @@ const Index = () => {
       </div>
 
       {/* Testimonials */}
-      <div className="py-24 bg-gray-50">
+      <div className="py-24 bg-gradient-to-br from-blue-100 via-white to-teal-100 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
             <h3 className="text-4xl font-bold text-gray-900 mb-4">
               Trusted by Top Coaches
             </h3>
             <p className="text-xl text-gray-600">
-              See what industry leaders are saying about SmartFit Pro
+              See what industry leaders are saying about STAPL Pro
             </p>
           </div>
 
@@ -441,7 +548,7 @@ const Index = () => {
                   ))}
                 </div>
                 <p className="text-gray-600 mb-4">
-                  "SmartFit Pro has revolutionized how I coach my athletes. The motion capture technology is incredible!"
+                  "STAPL Pro has revolutionized how I coach my athletes. The motion capture technology is incredible!"
                 </p>
                 <div className="flex items-center space-x-3">
                   <img 
@@ -519,7 +626,7 @@ const Index = () => {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link to="/coach">
-              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-lg px-8 py-6">
+              <Button size="lg" className="bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700 text-lg px-8 py-6 hover:text-white">
                 Start Free Trial
               </Button>
             </Link>

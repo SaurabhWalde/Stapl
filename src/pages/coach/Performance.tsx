@@ -80,7 +80,7 @@ const Performance = () => {
                 <div className="lg:col-span-2">
                   <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                     <CardHeader>
-                      <CardTitle className="flex items-center space-x-2">
+                      <CardTitle className="flex items-center space-x-2 text-black">
                         <BarChart3 className="w-5 h-5 text-blue-500" />
                         <span>Performance Trends</span>
                       </CardTitle>
@@ -99,7 +99,7 @@ const Performance = () => {
 
                 {/* Top Performers */}
                 <div className="space-y-6">
-                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm text-black">
                     <CardHeader>
                       <CardTitle className="flex items-center space-x-2">
                         <Trophy className="w-5 h-5 text-yellow-500" />
@@ -124,7 +124,7 @@ const Performance = () => {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm text-black">
                     <CardHeader>
                       <CardTitle className="flex items-center space-x-2">
                         <Target className="w-5 h-5 text-green-500" />
@@ -147,7 +147,7 @@ const Performance = () => {
               </div>
 
               {/* Performance Goals */}
-              <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+              <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm text-black">
                 <CardHeader>
                   <CardTitle>Team Performance Goals</CardTitle>
                 </CardHeader>

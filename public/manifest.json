@@ -1,6 +1,6 @@
 {
-  "name": "SmartFit Pro",
-  "short_name": "SmartFit",
+  "name": "STAPL - AI Powered Fitness Coaching",
+  "short_name": "STAPL",
   "description": "AI-powered fitness coaching with motion capture technology",
   "start_url": "/",
   "display": "standalone",

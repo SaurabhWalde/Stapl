@@ -43,11 +43,9 @@ const Dashboard = () => {
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex justify-between items-center">
             <div className="flex items-center space-x-4">
-              <Link to="/" className="flex items-center space-x-2">
-                <div className="w-8 h-8 bg-gradient-to-r from-primary to-accent rounded-lg flex items-center justify-center">
-                  <Activity className="w-5 h-5 text-primary-foreground" />
-                </div>
-                <h1 className="text-xl font-bold text-foreground">SmartFit Pro</h1>
+              <Link to="/" className="flex items-center space-x-0">
+                <img src="/logo.png" alt="STAPL Logo" className="w-14 h-14 object-contain animate-pulse" />
+                <h1 className="text-2xl font-bold italic font-serif bg-gradient-to-r from-blue-600 to-teal-600 bg-clip-text text-transparent">StapL</h1>
               </Link>
             </div>
             <div className="flex items-center space-x-4">

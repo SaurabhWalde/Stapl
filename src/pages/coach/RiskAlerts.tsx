@@ -101,7 +101,7 @@ const RiskAlerts = () => {
                 <div className="lg:col-span-2">
                   <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                     <CardHeader>
-                      <CardTitle className="flex items-center space-x-2">
+                      <CardTitle className="flex items-center space-x-2 text-black">
                         <AlertTriangle className="w-5 h-5 text-red-500" />
                         <span>Active Risk Alerts</span>
                         <Badge variant="secondary">{alerts.length}</Badge>
@@ -114,7 +114,7 @@ const RiskAlerts = () => {
                             <div className="flex items-start justify-between">
                               <div className="flex-1">
                                 <div className="flex items-center space-x-2 mb-2">
-                                  <Badge variant="outline" className="text-xs">
+                                  <Badge variant="outline" className="text-xs text-black">
                                     {alert.type}
                                   </Badge>
                                   <span className="text-sm text-gray-500">{alert.time}</span>
@@ -124,8 +124,8 @@ const RiskAlerts = () => {
                                 <p className="text-sm text-gray-600 mt-2">{alert.metrics}</p>
                               </div>
                               <div className="flex space-x-2">
-                                <Button size="sm" variant="outline">Review</Button>
-                                <Button size="sm">Action</Button>
+                                <Button size="sm" variant="outline" className="bg-white text-black">Review</Button>
+                                <Button size="sm" variant="outline" className="bg-white text-black">Action</Button>
                               </div>
                             </div>
                           </div>
@@ -139,13 +139,13 @@ const RiskAlerts = () => {
                 <div className="space-y-6">
                   <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                     <CardHeader>
-                      <CardTitle className="flex items-center space-x-2">
+                      <CardTitle className="flex items-center space-x-2 text-black">
                         <TrendingUp className="w-5 h-5 text-blue-500" />
                         <span>Risk Trends</span>
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
-                      <div className="space-y-4">
+                      <div className="space-y-4 text-black">
                         <div className="flex justify-between items-center">
                           <span className="text-sm">This Week</span>
                           <Badge variant="destructive">+15%</Badge>
@@ -162,7 +162,7 @@ const RiskAlerts = () => {
                     </CardContent>
                   </Card>
 
-                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm text-black">
                     <CardHeader>
                       <CardTitle className="flex items-center space-x-2">
                         <User className="w-5 h-5 text-purple-500" />

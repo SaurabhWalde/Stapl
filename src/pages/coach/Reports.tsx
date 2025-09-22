@@ -85,7 +85,7 @@ const Reports = () => {
                 <div className="lg:col-span-2 space-y-6">
                   <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                     <CardHeader>
-                      <CardTitle className="flex items-center space-x-2">
+                      <CardTitle className="flex items-center space-x-2 text-gray-500">
                         <FileText className="w-5 h-5 text-teal-500" />
                         <span>Quick Report Builder</span>
                       </CardTitle>
@@ -135,7 +135,7 @@ const Reports = () => {
                   </Card>
 
                   {/* Report Templates */}
-                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm text-gray-500">
                     <CardHeader>
                       <CardTitle>Report Templates</CardTitle>
                     </CardHeader>
@@ -161,9 +161,9 @@ const Reports = () => {
 
                 {/* Recent Reports */}
                 <div>
-                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
+                  <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm text-gray-800">
                     <CardHeader>
-                      <CardTitle className="flex items-center justify-between">
+                      <CardTitle className="flex items-center justify-between text-gray-500">
                         <span>Recent Reports</span>
                         <Badge variant="secondary">{recentReports.length}</Badge>
                       </CardTitle>
@@ -200,7 +200,7 @@ const Reports = () => {
               {/* Report Analytics */}
               <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>Report Usage Analytics</CardTitle>
+                  <CardTitle className="text-gray-500">Report Usage Analytics</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

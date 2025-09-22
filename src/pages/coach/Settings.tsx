@@ -72,7 +72,7 @@ const Settings = () => {
                 {/* Profile Settings */}
                 <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                   <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
+                    <CardTitle className="flex items-center space-x-2 text-black">
                       <User className="w-5 h-5 text-gray-500" />
                       <span>Profile Information</span>
                     </CardTitle>
@@ -109,7 +109,7 @@ const Settings = () => {
                 {/* Notification Settings */}
                 <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                   <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
+                    <CardTitle className="flex items-center space-x-2 text-black">
                       <Bell className="w-5 h-5 text-blue-500" />
                       <span>Notification Preferences</span>
                     </CardTitle>
@@ -161,7 +161,7 @@ const Settings = () => {
                 {/* Security Settings */}
                 <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                   <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
+                    <CardTitle className="flex items-center space-x-2 text-black">
                       <Shield className="w-5 h-5 text-red-500" />
                       <span>Security Settings</span>
                     </CardTitle>
@@ -187,7 +187,7 @@ const Settings = () => {
                 {/* Application Preferences */}
                 <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                   <CardHeader>
-                    <CardTitle className="flex items-center space-x-2">
+                    <CardTitle className="flex items-center space-x-2 text-black">
                       <Palette className="w-5 h-5 text-purple-500" />
                       <span>Application Preferences</span>
                     </CardTitle>
@@ -250,7 +250,7 @@ const Settings = () => {
               {/* Data Management */}
               <Card className="border-0 shadow-lg bg-white/80 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle className="flex items-center space-x-2">
+                  <CardTitle className="flex items-center space-x-2 text-black">
                     <Database className="w-5 h-5 text-green-500" />
                     <span>Data Management</span>
                   </CardTitle>
