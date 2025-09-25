@@ -200,24 +200,24 @@ const Index = () => {
              [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 
              h-11 rounded-md bg-gradient-to-r from-blue-600 to-teal-600 
              hover:from-blue-700 hover:to-teal-700 
-             text-lg px-3 py-5 shadow-xl hover:shadow-2xl 
+             text-lg px-2 py-5 shadow-xl hover:shadow-2xl 
              transition-all duration-300 text-black hover:text-white">
                       <TrendingUp className="w-4 h-4 mr-0" />
                       Start Your Journey
                     </Button>
                   </Link>
                   <Link to="/motion-capture">
-                    <Button size="sm" variant="outline" className="bg-black text-white border-2 border-transparent hover:bg-blue-600 hover:text-white text-sm px-3 py-5 transition-all duration-300">
+                    <Button size="sm" variant="outline" className="bg-black text-white border-2 border-transparent hover:bg-blue-600 hover:text-white text-sm px-2 py-5 transition-all duration-300">
                       <Camera className="w-4 h-4 mr-1" />
                       Try Motion Capture
                     </Button>
                   </Link>
                   <Link to="/social-feed">
-                    <Button size="sm" variant="outline" className="bg-black text-white border-2 border-transparent hover:bg-bluext-sm px-4 py-5 transition-all duration-300">
+                    <Button size="sm" variant="outline" className="bg-black text-white border-2 border-transparent hover:bg-bluext-sm px-3 py-5 transition-all duration-300">
                       <Users className="w-4 h-4 mr-2" />
                       Join Community
                     </Button>
-                  </Link>-600 hover:text-white te
+                  </Link>
                 </div>
 
                 {/* Stats */}
