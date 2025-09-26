@@ -213,7 +213,7 @@ const Index = () => {
                     </Button>
                   </Link>
                   <Link to="/social-feed">
-                    <Button size="sm" variant="outline" className="bg-black text-white border-2 border-transparent hover:bg-bluext-sm px-3 py-5 transition-all duration-300">
+                    <Button size="sm" variant="outline" className="bg-black text-white border-2 border-transparent hover:bg-blue-600 hover:text-white text-sm px-2 py-5 transition-all duration-300">
                       <Users className="w-4 h-4 mr-2" />
                       Join Community
                     </Button>
